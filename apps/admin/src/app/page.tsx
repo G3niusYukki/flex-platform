@@ -12,7 +12,7 @@ export default function AdminHomePage() {
             管理员登录
           </Link>
           <DebugLoginButton />
-          <Link href="http://localhost:3000" className="inline-block px-6 py-3 border border-slate-300 text-slate-700 rounded-lg font-medium hover:bg-slate-100">
+          <Link href={process.env.NEXT_PUBLIC_WEB_URL || "/"} className="inline-block px-6 py-3 border border-slate-300 text-slate-700 rounded-lg font-medium hover:bg-slate-100">
             用户端
           </Link>
         </div>
