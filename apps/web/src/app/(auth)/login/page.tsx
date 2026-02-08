@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { Loader2, Bug } from "lucide-react";
+import { Loader2, Phone, Lock, ArrowRight, Sparkles } from "lucide-react";
 
 function LoginForm() {
   const router = useRouter();
@@ -31,7 +31,7 @@ function LoginForm() {
         router.refresh();
       }
     } catch {
-      setError("登录失败");
+      setError("登录失败，请稍后重试");
     } finally {
       setIsLoading(false);
     }
@@ -59,74 +59,99 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-      <h1 className="text-2xl font-bold text-center text-slate-900 mb-2">
-        用户登录
-      </h1>
-      <p className="text-center text-slate-500 mb-8 text-sm">灵活用工平台</p>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">
-            手机号
-          </label>
-          <input
-            type="tel"
-            placeholder="请输入手机号"
-            value={formData.phone}
-            onChange={(e) =>
-              setFormData((p) => ({ ...p, phone: e.target.value }))
-            }
-            required
-            disabled={isLoading}
-            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary"
-          />
+    <div className="w-full max-w-md">
+      <div className="text-center mb-8">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/30 mb-4">
+          <Sparkles className="h-8 w-8 text-white" />
         </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">
-            密码
-          </label>
-          <input
-            type="password"
-            placeholder="请输入密码"
-            value={formData.password}
-            onChange={(e) =>
-              setFormData((p) => ({ ...p, password: e.target.value }))
-            }
-            required
-            disabled={isLoading}
-            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary"
-          />
-        </div>
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full py-3 px-4 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="h-5 w-5 animate-spin" />
-              登录中...
-            </>
-          ) : (
-            "登录"
+        <h1 className="text-2xl font-bold text-slate-900">欢迎回来</h1>
+        <p className="text-slate-500 mt-1">登录灵活用工平台</p>
+      </div>
+
+      <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              手机号
+            </label>
+            <div className="relative">
+              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+              <input
+                type="tel"
+                placeholder="请输入手机号"
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData((p) => ({ ...p, phone: e.target.value }))
+                }
+                required
+                disabled={isLoading}
+                className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              密码
+            </label>
+            <div className="relative">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+              <input
+                type="password"
+                placeholder="请输入密码"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData((p) => ({ ...p, password: e.target.value }))
+                }
+                required
+                disabled={isLoading}
+                className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
+              />
+            </div>
+          </div>
+
+          {error && (
+            <div className="p-3 rounded-lg bg-red-50 border border-red-100 text-red-600 text-sm">
+              {error}
+            </div>
           )}
-        </button>
-      </form>
-      <button
-        type="button"
-        onClick={handleDebugLogin}
-        disabled={isLoading}
-        className="mt-4 w-full py-2 px-4 border-2 border-amber-400 text-amber-700 font-medium rounded-lg hover:bg-amber-50 disabled:opacity-50 flex items-center justify-center gap-2"
-      >
-        <Bug className="h-4 w-4" />
-        调试登录（一键进入）
-      </button>
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-500/25"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                登录中...
+              </>
+            ) : (
+              <>
+                登录
+                <ArrowRight className="h-5 w-5" />
+              </>
+            )}
+          </button>
+        </form>
+
+        <div className="mt-6 pt-6 border-t border-slate-100">
+          <button
+            type="button"
+            onClick={handleDebugLogin}
+            disabled={isLoading}
+            className="w-full py-2.5 px-4 border-2 border-amber-200 text-amber-700 font-medium rounded-xl hover:bg-amber-50 active:bg-amber-100 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
+          >
+            <span className="text-sm">🐛 调试登录（一键进入）</span>
+          </button>
+        </div>
+      </div>
+
       <p className="mt-6 text-center text-sm text-slate-500">
         还没有账号？
         <Link
           href="/register"
-          className="text-primary font-medium hover:underline"
+          className="text-blue-600 font-medium hover:text-blue-700 hover:underline ml-1"
         >
           立即注册
         </Link>
@@ -137,15 +162,15 @@ function LoginForm() {
 
 function LoginLoading() {
   return (
-    <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex items-center justify-center">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 flex items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
     </div>
   );
 }
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-white px-4 py-8">
       <Suspense fallback={<LoginLoading />}>
         <LoginForm />
       </Suspense>
