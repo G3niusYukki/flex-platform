@@ -1,0 +1,6 @@
+node_modules/
+.next/
+apps/*/.next/
+apps/*/node_modules/
+.vscode/
+*.log

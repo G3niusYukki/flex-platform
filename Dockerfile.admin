@@ -1,0 +1,36 @@
+# 使用 Debian 镜像，Prisma 兼容性更好
+FROM node:18-slim AS base
+WORKDIR /app
+
+# 安装依赖
+FROM base AS deps
+COPY package.json package-lock.json* ./
+COPY apps/ apps/
+COPY packages/ packages/
+COPY prisma/ prisma/
+RUN npm install
+
+# 构建阶段
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+WORKDIR /app/apps/admin
+RUN npx prisma generate --schema=../../prisma/schema.prisma
+RUN npm run build
+
+# 运行阶段
+FROM node:18-slim AS runner
+ENV NODE_ENV=production
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN groupadd --system --gid 1001 nodejs && useradd --system --uid 1001 nextjs
+RUN mkdir -p public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/static ./apps/admin/.next/static
+COPY --from=builder /app/prisma ./prisma
+USER nextjs
+WORKDIR /app/apps/admin
+EXPOSE 3000
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+CMD ["node", "server.js"]

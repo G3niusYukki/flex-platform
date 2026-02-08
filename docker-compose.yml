@@ -1,0 +1,81 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: flex-platform-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: flex_platform
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - flex-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: flex-platform-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - flex-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: flex-platform-web
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/flex_platform
+      - REDIS_URL=redis://redis:6379
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=flex-platform-secret-key-change-in-production
+      - NODE_ENV=production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - flex-network
+
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    container_name: flex-platform-admin
+    ports:
+      - "3001:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/flex_platform
+      - NODE_ENV=production
+      - NEXTAUTH_URL=http://localhost:3001
+      - NEXTAUTH_SECRET=flex-platform-admin-secret-key-change-in-production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - flex-network
+
+networks:
+  flex-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:

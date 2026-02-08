@@ -1,0 +1,36 @@
+{
+  "name": "flex-platform",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@10.5.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:web": "npm run dev --workspace=flex-web",
+    "dev:admin": "npm run dev --workspace=flex-admin",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:generate": "turbo run db:generate",
+    "db:push": "turbo run db:push",
+    "db:migrate": "turbo run db:migrate",
+    "db:studio": "turbo run db:studio",
+    "db:seed": "npx prisma db seed"
+  },
+  "prisma": {
+    "seed": "npx ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "devDependencies": {
+    "bcryptjs": "^2.4.3",
+    "prettier": "latest",
+    "ts-node": "^10.9.2",
+    "turbo": "latest",
+    "typescript": "latest"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
