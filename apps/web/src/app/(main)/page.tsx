@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   MapPin,
@@ -17,6 +17,12 @@ import {
   Clock,
   Award,
   Sparkles,
+  Bot,
+  Cpu,
+  Brain,
+  Network,
+  Activity,
+  MessageCircle,
 } from "lucide-react";
 import { DebugLoginButton } from "@/components/debug-login-button";
 import {
@@ -39,32 +45,42 @@ type Order = {
   status: string;
 };
 
+// AI 对话气泡内容
+const aiMessages = [
+  "正在分析 1,234 个岗位需求...",
+  "已为您匹配到 56 位合适人选",
+  "今日完成 2,456 次智能派单",
+  "平均匹配时间: 4.2 秒",
+  "已学习 100 万+ 成功案例",
+  "人类员工满意度: 99.2%",
+];
+
 const stats = [
   {
-    label: "注册工人",
+    label: "AI 已服务人类",
     value: "50,000+",
     icon: Users,
-    gradient: "from-blue-500 to-indigo-600",
-    bgGradient: "from-blue-50 to-indigo-50",
+    gradient: "from-cyan-500 to-blue-600",
+    bgGradient: "from-cyan-50 to-blue-50",
   },
   {
-    label: "合作企业",
+    label: "AI 合作企业",
     value: "2,000+",
     icon: Briefcase,
-    gradient: "from-emerald-500 to-teal-600",
-    bgGradient: "from-emerald-50 to-teal-50",
-  },
-  {
-    label: "成功派单",
-    value: "100万+",
-    icon: TrendingUp,
     gradient: "from-violet-500 to-purple-600",
     bgGradient: "from-violet-50 to-purple-50",
   },
   {
-    label: "平均薪资",
-    value: "¥280/天",
-    icon: DollarSign,
+    label: "AI 派单次数",
+    value: "100万+",
+    icon: Brain,
+    gradient: "from-fuchsia-500 to-pink-600",
+    bgGradient: "from-fuchsia-50 to-pink-50",
+  },
+  {
+    label: "平均响应时间",
+    value: "4.2秒",
+    icon: Zap,
     gradient: "from-amber-500 to-orange-600",
     bgGradient: "from-amber-50 to-orange-50",
   },
@@ -72,37 +88,109 @@ const stats = [
 
 const features = [
   {
-    icon: Zap,
-    title: "智能派单",
-    desc: "AI 算法精准匹配，最快 5 分钟响应",
-    gradient: "from-yellow-400 to-orange-500",
+    icon: Brain,
+    title: "神经网络匹配",
+    desc: "深度学习算法，精准匹配人岗需求",
+    gradient: "from-violet-400 to-purple-500",
+  },
+  {
+    icon: Cpu,
+    title: "AI 秒速派单",
+    desc: "毫秒级响应，智能调度最优人选",
+    gradient: "from-cyan-400 to-blue-500",
   },
   {
     icon: Shield,
-    title: "安全保障",
-    desc: "实名认证+资金托管+评价体系",
-    gradient: "from-blue-400 to-cyan-500",
-  },
-  {
-    icon: Award,
-    title: "薪资保障",
-    desc: "日结周结灵活结算，平台垫付无忧",
+    title: "AI 合规监控",
+    desc: "24/7 智能风控，保障双方权益",
     gradient: "from-emerald-400 to-green-500",
   },
   {
-    icon: TrendingUp,
-    title: "成长体系",
-    desc: "技能培训+信用积累+晋升通道",
-    gradient: "from-purple-400 to-pink-500",
+    icon: Network,
+    title: "智能薪酬核算",
+    desc: "自动化结算，透明高效零误差",
+    gradient: "from-pink-400 to-rose-500",
   },
 ];
 
 const steps = [
-  { step: "1", title: "注册账号", desc: "选择身份类型，完善基本信息", icon: Users },
-  { step: "2", title: "实名认证", desc: "上传证件信息，平台审核验证", icon: Shield },
-  { step: "3", title: "接单工作", desc: "浏览职位信息，一键接单上岗", icon: Briefcase },
-  { step: "4", title: "获取收益", desc: "完成工作结算，薪资自动到账", icon: DollarSign },
+  { step: "1", title: "接入 AI 系统", desc: "注册账号，AI 开始分析您的能力", icon: Bot },
+  { step: "2", title: "AI 能力评估", desc: "智能测评，建立专属人才画像", icon: Brain },
+  { step: "3", title: "等待 AI 派单", desc: "算法匹配，秒级推送合适任务", icon: Cpu },
+  { step: "4", title: "完成任务获薪", desc: "AI 核算工资，自动发放到账", icon: DollarSign },
 ];
+
+// AI 打字机效果组件
+function AITypingMessage() {
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+
+  useEffect(() => {
+    const message = aiMessages[messageIndex];
+    let charIndex = 0;
+
+    if (isTyping) {
+      const typingInterval = setInterval(() => {
+        if (charIndex <= message.length) {
+          setDisplayText(message.slice(0, charIndex));
+          charIndex++;
+        } else {
+          clearInterval(typingInterval);
+          setTimeout(() => {
+            setIsTyping(false);
+          }, 2000);
+        }
+      }, 50);
+      return () => clearInterval(typingInterval);
+    } else {
+      setTimeout(() => {
+        setMessageIndex((prev) => (prev + 1) % aiMessages.length);
+        setDisplayText("");
+        setIsTyping(true);
+      }, 500);
+    }
+  }, [messageIndex, isTyping]);
+
+  return (
+    <div className="flex items-start gap-3">
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+        <Bot className="h-4 w-4 text-white" />
+      </div>
+      <div className="glass-dark rounded-2xl rounded-tl-none px-4 py-2 max-w-[240px]">
+        <p className="text-sm text-slate-700">
+          {displayText}
+          <span className="inline-block w-1 h-4 bg-violet-500 ml-1 animate-pulse" />
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// AI 状态指示器
+function AIStatusIndicator() {
+  const [count, setCount] = useState(1234567);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(prev => prev + Math.floor(Math.random() * 3) + 1);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-2 text-sm">
+      <span className="relative flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+      </span>
+      <span className="text-slate-600">AI 运行中</span>
+      <span className="text-slate-400">·</span>
+      <span className="text-violet-600 font-medium">{count.toLocaleString()}</span>
+      <span className="text-slate-500">次派单</span>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -124,157 +212,169 @@ export default function HomePage() {
     <div className="flex flex-col overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* 动态背景 */}
-        <div className="absolute inset-0 gradient-hero animate-gradient" />
-        <div className="absolute inset-0 bg-grid" />
+        {/* 动态背景 - 更强的科技感 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM5YzkyYWMiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE4aDEydjEySDB6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
+
+        {/* 电路线装饰 */}
+        <div className="absolute inset-0 overflow-hidden opacity-20">
+          <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="circuit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="#06b6d4" />
+              </linearGradient>
+            </defs>
+            <path d="M0,100 L100,100 L100,200 L300,200 L300,150 L500,150" stroke="url(#circuit-gradient)" strokeWidth="1" fill="none" className="animate-pulse" />
+            <path d="M600,50 L500,50 L500,100 L400,100 L400,250" stroke="url(#circuit-gradient)" strokeWidth="1" fill="none" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
+            <path d="M200,300 L200,200 L350,200 L350,100 L450,100" stroke="url(#circuit-gradient)" strokeWidth="1" fill="none" className="animate-pulse" style={{ animationDelay: '1s' }} />
+          </svg>
+        </div>
 
         {/* 浮动装饰元素 */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-violet-500/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-violet-500/10 to-cyan-500/10 rounded-full blur-3xl" />
 
-        {/* 装饰卡片 */}
-        <div className="hidden lg:block absolute top-32 right-20 glass rounded-2xl p-4 shadow-xl animate-float">
+        {/* AI 对话气泡 - 左上角 */}
+        <div className="hidden lg:block absolute top-32 left-16 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <AITypingMessage />
+        </div>
+
+        {/* AI 状态卡片 - 右上角 */}
+        <div className="hidden lg:block absolute top-32 right-20 glass rounded-2xl p-4 shadow-xl animate-float border border-white/20">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+              <Brain className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-white">AI 核心运行中</p>
+              <p className="text-xs text-slate-300">已学习 100万+ 案例</p>
+            </div>
+          </div>
+        </div>
+
+        {/* 完成订单卡片 - 右下 */}
+        <div className="hidden lg:block absolute bottom-40 right-32 glass rounded-2xl p-4 shadow-xl animate-float-delayed border border-white/20">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
               <CheckCircle className="h-5 w-5 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-800">订单已完成</p>
-              <p className="text-xs text-slate-500">刚刚 · +¥280</p>
+              <p className="text-sm font-semibold text-white">AI 派单完成</p>
+              <p className="text-xs text-slate-300">刚刚 · 匹配耗时 3.2s</p>
             </div>
           </div>
         </div>
 
-        <div className="hidden lg:block absolute bottom-32 left-20 glass rounded-2xl p-4 shadow-xl animate-float-delayed">
+        {/* 评分卡片 - 左下 */}
+        <div className="hidden lg:block absolute bottom-32 left-20 glass rounded-2xl p-4 shadow-xl animate-float border border-white/20">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
               <Star className="h-5 w-5 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-800">5.0 好评</p>
-              <p className="text-xs text-slate-500">来自雇主赵先生</p>
+              <p className="text-sm font-semibold text-white">人类满意度</p>
+              <p className="text-xs text-slate-300">99.2% · 来自 5万+ 评价</p>
             </div>
           </div>
         </div>
 
-        <div className="container relative z-10">
-          <div className="mx-auto max-w-4xl text-center">
-            {/* 标签 */}
-            <div
-              className={`inline-flex items-center gap-2 rounded-full glass px-5 py-2 text-sm font-medium text-slate-700 mb-8 shadow-lg transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
-            >
-              <Sparkles className="h-4 w-4 text-amber-500" />
-              <span>平台服务全面升级</span>
-              <span className="w-1 h-1 rounded-full bg-slate-400" />
-              <span className="text-blue-600 font-semibold">新用户首单立减 50 元</span>
+        <div className="container relative z-10 mx-auto px-4 py-20">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* AI 状态指示器 */}
+            <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-8 border border-white/20 animate-fade-in-up">
+              <AIStatusIndicator />
             </div>
 
-            {/* 标题 */}
-            <h1
-              className={`text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-            >
-              <span className="text-slate-900">灵活用工</span>
+            {/* 主标题 */}
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+              <span className="text-white">AI 智能</span>
               <br />
-              <span className="text-gradient">高效对接平台</span>
+              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
+                雇佣平台
+              </span>
             </h1>
 
-            {/* 副标题 */}
-            <p
-              className={`mt-8 text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-            >
-              连接优质雇主与工人，让用工更简单、更高效、更安全
+            {/* 副标题 - AI 风格 */}
+            <p className="text-xl md:text-2xl text-slate-300 mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              人类，是时候为 <span className="text-violet-400 font-semibold">AI</span> 工作了
+            </p>
+            <p className="text-slate-400 mb-8 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+              神经网络秒速匹配 · AI 智能派单 · 让用工更聪明
             </p>
 
-            {/* 按钮组 */}
-            <div
-              className={`mt-12 flex flex-wrap items-center justify-center gap-4 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-            >
+            {/* CTA 按钮 */}
+            <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               <Link
                 href="/jobs"
-                className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-xl shadow-blue-500/25 hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-1 btn-shine"
+                className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-violet-500/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
               >
-                浏览职位
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <span className="relative z-10 flex items-center gap-2">
+                  <Bot className="h-5 w-5" />
+                  接受 AI 派遣
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
               <Link
                 href="/register"
-                className="inline-flex items-center gap-2 rounded-2xl glass px-8 py-4 text-lg font-semibold text-slate-700 hover:bg-white/80 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="inline-flex items-center gap-2 px-8 py-4 glass text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition-all duration-300 border border-white/20"
               >
-                免费注册
+                加入 AI 网络
               </Link>
               <DebugLoginButton />
             </div>
 
             {/* 信任标识 */}
-            <div
-              className={`mt-12 flex items-center justify-center gap-8 text-sm text-slate-500 transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-            >
-              <span className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
-                  <CheckCircle className="h-3 w-3 text-green-600" />
-                </div>
-                免费注册
-              </span>
-              <span className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
-                  <CheckCircle className="h-3 w-3 text-green-600" />
-                </div>
-                实名认证
-              </span>
-              <span className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
-                  <CheckCircle className="h-3 w-3 text-green-600" />
-                </div>
-                日结薪资
-              </span>
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+              <div className="flex items-center gap-2 text-slate-400">
+                <CheckCircle className="h-4 w-4 text-green-400" />
+                <span className="text-sm">神经网络 v3.0</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-400">
+                <CheckCircle className="h-4 w-4 text-green-400" />
+                <span className="text-sm">实时学习优化</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-400">
+                <CheckCircle className="h-4 w-4 text-green-400" />
+                <span className="text-sm">毫秒级响应</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* 底部波浪 */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-              fill="white"
-            />
-          </svg>
-        </div>
+        {/* 底部波浪过渡 */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 to-transparent" />
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-white relative">
-        <div className="container">
+      <section className="py-20 bg-slate-50 relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-violet-100 text-violet-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <Activity className="h-4 w-4" />
+              AI 实时数据
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+              AI 正在改变用工方式
+            </h2>
+          </div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
               <div
-                key={stat.label}
-                className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${stat.bgGradient} p-8 hover-lift cursor-default`}
-                style={{ animationDelay: `${index * 100}ms` }}
+                key={index}
+                className={`relative bg-gradient-to-br ${stat.bgGradient} rounded-2xl p-6 hover-lift cursor-default group animate-fade-in-up`}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* 装饰圆形 */}
-                <div
-                  className={`absolute -top-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br ${stat.gradient} opacity-20 group-hover:scale-150 transition-transform duration-500`}
-                />
-
-                {/* 图标 */}
-                <div
-                  className={`relative inline-flex p-4 rounded-2xl bg-gradient-to-br ${stat.gradient} text-white shadow-lg mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
-                >
-                  <stat.icon className="h-7 w-7" />
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${stat.gradient} shadow-lg mb-4 group-hover:scale-110 transition-transform`}>
+                  <stat.icon className="h-6 w-6 text-white" />
                 </div>
-
-                {/* 数值 */}
-                <p className="relative text-4xl font-bold text-slate-900 mb-2">
+                <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-1">
                   {stat.value}
-                </p>
-                <p className="relative text-slate-600 font-medium">{stat.label}</p>
+                </div>
+                <div className="text-slate-600 text-sm">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -282,297 +382,253 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-dots" />
-
-        <div className="container relative">
-          <div className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-sm font-medium text-blue-700 mb-4">
-              <Zap className="h-4 w-4" />
-              核心优势
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-              四大优势，让用工更简单
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-100 to-cyan-100 text-violet-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <Cpu className="h-4 w-4" />
+              核心算法
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              AI 为您提供的超能力
             </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              专业的技术与服务，为您保驾护航
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              我们的神经网络经过 100万+ 成功案例训练，让匹配更精准、派单更高效
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
               <div
-                key={feature.title}
-                className="group relative bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 hover-lift gradient-border"
+                key={index}
+                className="group relative bg-white rounded-2xl p-6 border border-slate-200 hover:border-transparent hover:shadow-xl transition-all duration-300 hover:-translate-y-2 animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* 图标 */}
-                <div
-                  className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} text-white shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <feature.icon className="h-7 w-7" />
+                <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg mb-4 group-hover:scale-110 transition-transform`}>
+                  <feature.icon className="h-7 w-7 text-white" />
                 </div>
-
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-slate-600 leading-relaxed">{feature.desc}</p>
-
-                {/* 悬停箭头 */}
-                <div className="mt-6 flex items-center text-sm font-medium text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                  了解更多 <ArrowRight className="h-4 w-4 ml-1" />
-                </div>
+                <p className="text-slate-600">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Steps Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="container">
-          <div className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-4 py-1.5 text-sm font-medium text-emerald-700 mb-4">
-              <Clock className="h-4 w-4" />
-              快速开始
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-              四步即可上岗赚钱
+      {/* How It Works - AI Style */}
+      <section className="py-20 bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900 relative overflow-hidden">
+        {/* 背景装饰 */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-violet-500 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-cyan-500 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-sm font-medium text-white mb-4 border border-white/20">
+              <Network className="h-4 w-4" />
+              AI 工作流程
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              4 步接入 AI 系统
             </h2>
-            <p className="text-xl text-slate-600">
-              简单流程，快速上手
+            <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+              简单几步，让 AI 为您安排最适合的工作
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8 relative">
-            {/* 连接线 */}
-            <div className="hidden md:block absolute top-16 left-[12.5%] right-[12.5%] h-1 bg-gradient-to-r from-blue-200 via-purple-200 to-emerald-200 rounded-full" />
+          <div className="grid md:grid-cols-4 gap-6">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className="relative glass rounded-2xl p-6 border border-white/10 hover:border-violet-500/50 transition-all duration-300 group animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.15}s` }}
+              >
+                {/* 连接线 */}
+                {index < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-violet-500 to-cyan-500" />
+                )}
 
-            {steps.map((item, index) => (
-              <div key={item.step} className="relative text-center group">
-                {/* 步骤数字 */}
-                <div className="relative inline-flex items-center justify-center w-32 h-32 mb-6">
-                  {/* 外圈 */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 group-hover:scale-110 transition-transform duration-500" />
-                  {/* 内圈 */}
-                  <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 flex items-center justify-center shadow-xl shadow-blue-500/30 group-hover:shadow-2xl group-hover:shadow-blue-500/40 transition-all duration-300">
-                    <span className="text-3xl font-bold text-white">{item.step}</span>
-                  </div>
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <step.icon className="h-6 w-6 text-white" />
                 </div>
-
-                {/* 图标 */}
-                <div className="inline-flex p-3 rounded-xl bg-slate-100 text-slate-600 mb-4 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors duration-300">
-                  <item.icon className="h-5 w-5" />
-                </div>
-
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-slate-600">{item.desc}</p>
+                <div className="text-violet-400 text-sm font-medium mb-1">步骤 {step.step}</div>
+                <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
+                <p className="text-slate-400 text-sm">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden">
-        {/* 背景渐变 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700" />
-        <div className="absolute inset-0 bg-grid opacity-10" />
-
-        {/* 装饰 */}
-        <div className="absolute top-20 left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-float-delayed" />
-
-        <div className="container relative z-10">
-          <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              立即开始你的灵活就业之旅
-            </h2>
-            <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
-              注册即享新手礼包，绑定银行卡即可接单
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/register"
-                className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-indigo-600 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 btn-shine"
-              >
-                免费注册
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/jobs"
-                className="inline-flex items-center gap-2 rounded-2xl border-2 border-white/30 bg-white/10 backdrop-blur-sm px-8 py-4 text-lg font-semibold text-white hover:bg-white/20 transition-all duration-300"
-              >
-                浏览职位
-              </Link>
-            </div>
-
-            {/* 统计数据 */}
-            <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <p className="text-4xl font-bold text-white">24h</p>
-                <p className="text-blue-200 mt-1">快速响应</p>
-              </div>
-              <div className="text-center border-x border-white/20">
-                <p className="text-4xl font-bold text-white">99.9%</p>
-                <p className="text-blue-200 mt-1">资金安全</p>
-              </div>
-              <div className="text-center">
-                <p className="text-4xl font-bold text-white">4.9</p>
-                <p className="text-blue-200 mt-1">用户评分</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Jobs Section */}
-      <section className="py-24 bg-slate-50">
-        <div className="container">
-          <div className="flex items-center justify-between mb-12">
+      {/* Latest Jobs */}
+      <section className="py-20 bg-slate-50">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-orange-100 px-4 py-1.5 text-sm font-medium text-orange-700 mb-4">
-                <Briefcase className="h-4 w-4" />
-                热门推荐
-              </span>
-              <h2 className="text-4xl font-bold text-slate-900">最新职位</h2>
-              <p className="mt-2 text-slate-600">热门职位等你来抢</p>
+              <div className="inline-flex items-center gap-2 bg-violet-100 text-violet-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <Sparkles className="h-4 w-4" />
+                AI 推荐任务
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+                AI 为您精选的任务
+              </h2>
             </div>
             <Link
               href="/jobs"
-              className="group inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition-colors"
+              className="inline-flex items-center gap-2 text-violet-600 font-semibold hover:text-violet-700 mt-4 md:mt-0 group"
             >
-              查看全部
+              查看全部任务
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
           {loading ? (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="rounded-3xl bg-white p-8 shadow-lg animate-pulse"
-                >
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="h-6 w-3/4 rounded-lg bg-slate-200" />
-                    <div className="h-7 w-20 rounded-full bg-slate-200" />
-                  </div>
-                  <div className="h-5 w-1/2 rounded-lg bg-slate-200 mb-6" />
-                  <div className="space-y-3">
-                    <div className="h-4 w-full rounded bg-slate-200" />
-                    <div className="h-4 w-2/3 rounded bg-slate-200" />
-                  </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-white rounded-2xl p-6 animate-pulse">
+                  <div className="h-6 bg-slate-200 rounded w-3/4 mb-4" />
+                  <div className="h-4 bg-slate-200 rounded w-1/2 mb-2" />
+                  <div className="h-4 bg-slate-200 rounded w-1/3" />
                 </div>
               ))}
             </div>
-          ) : (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {orders.map((order) => (
+          ) : orders.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {orders.map((order, index) => (
                 <Link
                   key={order.id}
                   href={`/jobs/${order.id}`}
-                  className="group block bg-white rounded-3xl p-8 shadow-lg shadow-slate-200/50 hover-lift gradient-border"
+                  className="group bg-white rounded-2xl p-6 border border-slate-200 hover:border-violet-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
-                      {order.title}
-                    </h3>
-                    <span
-                      className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${getOrderStatusColor(order.status)}`}
-                    >
-                      {getOrderStatusText(order.status)}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="inline-flex items-center rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 px-3 py-1.5 text-xs font-semibold text-blue-700 border border-blue-100">
-                      {order.serviceCategory}
-                    </span>
-                  </div>
-
-                  <p className="text-slate-600 text-sm line-clamp-2 mb-6 leading-relaxed">
-                    {order.description}
-                  </p>
-
-                  <div className="space-y-3 text-sm text-slate-500">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-                        <MapPin className="h-4 w-4 text-slate-400" />
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs bg-violet-100 text-violet-700 px-2 py-1 rounded-full flex items-center gap-1">
+                          <Bot className="h-3 w-3" />
+                          AI 推荐
+                        </span>
+                        <span className={`text-xs px-2 py-1 rounded-full ${getOrderStatusColor(order.status)}`}>
+                          {getOrderStatusText(order.status)}
+                        </span>
                       </div>
-                      <span className="truncate">{order.city || order.address}</span>
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-violet-600 transition-colors">
+                        {order.title}
+                      </h3>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-                        <Calendar className="h-4 w-4 text-slate-400" />
-                      </div>
+                  </div>
+
+                  <div className="space-y-2 text-sm text-slate-600">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-slate-400" />
+                      <span className="truncate">{order.address || order.city || "待定"}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4 text-slate-400" />
                       <span>{formatDate(order.scheduledStart)}</span>
                     </div>
-                  </div>
-
-                  <div className="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                        <DollarSign className="h-4 w-4 text-emerald-600" />
+                    {typeof order.expectedSalary === 'number' && order.expectedSalary > 0 && (
+                      <div className="flex items-center gap-2 text-violet-600 font-semibold">
+                        <DollarSign className="h-4 w-4" />
+                        <span>{formatCurrency(order.expectedSalary)}/天</span>
                       </div>
-                      <span className="text-2xl font-bold text-emerald-600">
-                        {formatCurrency(Number(order.expectedSalary))}
-                      </span>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-blue-600 font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                      详情 <ArrowRight className="h-4 w-4" />
-                    </span>
+                    )}
                   </div>
                 </Link>
               ))}
             </div>
-          )}
-
-          {!loading && orders.length === 0 && (
-            <div className="rounded-3xl border-2 border-dashed border-slate-200 bg-white py-20 text-center">
-              <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-6">
-                <Briefcase className="h-8 w-8 text-slate-300" />
-              </div>
-              <p className="text-xl text-slate-500 mb-4">暂无职位，敬请期待</p>
-              <Link
-                href="/jobs"
-                className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700"
-              >
-                去职位列表 <ArrowRight className="h-4 w-4" />
-              </Link>
+          ) : (
+            <div className="text-center py-12">
+              <Bot className="h-16 w-16 text-slate-300 mx-auto mb-4" />
+              <p className="text-slate-500">AI 正在学习中，暂无推荐任务</p>
             </div>
           )}
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-violet-600 via-purple-600 to-fuchsia-600 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMThoMTJ2MTJIMHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30" />
+
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur rounded-full px-4 py-2 text-white text-sm mb-6">
+              <Bot className="h-4 w-4" />
+              AI 正在等待您的加入
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              准备好被 AI 雇佣了吗？
+            </h2>
+            <p className="text-xl text-white/80 mb-8">
+              加入我们，让 AI 为您匹配最适合的工作机会
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link
+                href="/register"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-violet-600 rounded-xl font-bold text-lg hover:bg-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                <Bot className="h-5 w-5" />
+                立即加入 AI 网络
+              </Link>
+              <Link
+                href="/jobs"
+                className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white rounded-xl font-bold text-lg hover:bg-white/10 transition-all duration-300"
+              >
+                浏览 AI 任务
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-5" />
-
-        <div className="container relative">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            {/* Logo */}
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
-                <Briefcase className="h-6 w-6 text-white" />
+      <footer className="bg-slate-900 text-slate-400 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+                  <Bot className="h-5 w-5 text-white" />
+                </div>
+                <span className="text-xl font-bold text-white">AI 雇佣平台</span>
               </div>
-              <div>
-                <span className="text-xl font-bold text-white">灵活用工平台</span>
-                <p className="text-sm text-slate-500">高效对接 · 安全可靠</p>
+              <p className="text-slate-400 mb-4 max-w-md">
+                全球领先的 AI 智能用工平台，让人工智能为您匹配最适合的工作机会，开创人机协作新时代。
+              </p>
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                </span>
+                <span className="text-sm">AI 系统全天候运行</span>
               </div>
             </div>
 
-            {/* Links */}
-            <div className="flex items-center gap-8 text-sm">
-              <Link href="/jobs" className="hover:text-white transition-colors">职位列表</Link>
-              <Link href="/register" className="hover:text-white transition-colors">免费注册</Link>
-              <Link href="/login" className="hover:text-white transition-colors">登录</Link>
+            <div>
+              <h4 className="font-semibold text-white mb-4">快速链接</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/jobs" className="hover:text-violet-400 transition-colors">AI 任务列表</Link></li>
+                <li><Link href="/register" className="hover:text-violet-400 transition-colors">加入 AI 网络</Link></li>
+                <li><Link href="/login" className="hover:text-violet-400 transition-colors">登录系统</Link></li>
+              </ul>
             </div>
 
-            {/* Copyright */}
-            <p className="text-sm">© 2024 灵活用工平台 版权所有</p>
+            <div>
+              <h4 className="font-semibold text-white mb-4">联系我们</h4>
+              <ul className="space-y-2 text-sm">
+                <li>服务热线：400-888-8888</li>
+                <li>商务合作：business@ai-hire.com</li>
+                <li>技术支持：support@ai-hire.com</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 pt-8 text-center text-sm">
+            <p>© 2024 AI 雇佣平台. All rights reserved. | 让 AI 为人类创造更多可能</p>
           </div>
         </div>
       </footer>
