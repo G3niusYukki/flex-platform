@@ -1,0 +1,459 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "linux-musl", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 用户基础信息
+model User {
+  id                String        @id @default(cuid())
+  phone             String        @unique
+  email             String?       @unique
+  passwordHash      String?
+  userType          UserType      @default(WORKER)
+  status            UserStatus    @default(PENDING)
+  avatar            String?
+  realName          String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  lastLoginAt       DateTime?
+
+  // 关系
+  profile           WorkerProfile?
+  employerProfile   EmployerProfile?
+  ordersAsWorker    Order[]       @relation("WorkerOrders")
+  ordersAsEmployer  Order[]       @relation("EmployerOrders")
+  dispatchRecords   DispatchRecord[]
+  wallets           Wallet[]
+  evaluationsAsReviewer Evaluation[] @relation("ReviewerEvaluations")
+  evaluationsAsReviewee Evaluation[] @relation("RevieweeEvaluations")
+  notifications     Notification[]
+  devices           Device[]
+
+  @@index([phone])
+  @@index([userType])
+  @@index([status])
+}
+
+enum UserType {
+  WORKER
+  EMPLOYER
+  ADMIN
+}
+
+enum UserStatus {
+  PENDING      // 待审核
+  ACTIVE       // 正常
+  INACTIVE     // 已禁用
+  SUSPENDED    // 已封禁
+}
+
+// 工人详细档案
+model WorkerProfile {
+  id                    String    @id @default(cuid())
+  userId                String    @unique
+  user                  User      @relation(fields: [userId], references: [id])
+
+  // 基本信息
+  gender                Gender?
+  age                   Int?
+
+  // 工作信息
+  serviceCategory       String[]
+  skills                String[]
+  workExperience        Int?
+  selfIntroduction      String?
+
+  // 资质认证
+  idCardVerified        Boolean   @default(false)
+  idCardFront           String?
+  idCardBack            String?
+  healthCertVerified    Boolean   @default(false)
+  healthCertImage       String?
+  skillCerts            Json?
+
+  // 统计数据
+  totalOrders           Int       @default(0)
+  completedOrders       Int       @default(0)
+  canceledOrders        Int       @default(0)
+  averageRating         Float     @default(5.0)
+  totalEarnings         Decimal   @default(0) @db.Decimal(12, 2)
+
+  // 派单相关
+  isOnline              Boolean   @default(false)
+  onlineStatus          OnlineStatus @default(OFFLINE)
+  lastLocationLat       Float?
+  lastLocationLng       Float?
+  lastLocationTime      DateTime?
+  maxReceiveRadius      Int       @default(10)
+  avgResponseTime       Float     @default(15)
+  acceptanceRate        Float     @default(100)
+  completionRate        Float     @default(100)
+
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([isOnline])
+  @@index([onlineStatus])
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum OnlineStatus {
+  OFFLINE
+  ONLINE
+  BUSY
+  ON_ORDER
+}
+
+// 雇主详细档案
+model EmployerProfile {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id])
+
+  // 公司/个人信息
+  companyName       String?
+  contactPerson     String?
+  contactPhone      String?
+
+  // 认证状态
+  verified          Boolean   @default(false)
+  verifiedAt        DateTime?
+  licenseImage      String?
+
+  // 统计数据
+  totalOrders       Int       @default(0)
+  activeOrders      Int       @default(0)
+  averageRating     Float     @default(5.0)
+  totalSpend        Decimal   @default(0) @db.Decimal(12, 2)
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+// 订单/用工需求
+model Order {
+  id                String      @id @default(cuid())
+  orderNo           String      @unique
+
+  // 参与方
+  employerId        String
+  employer          User        @relation("EmployerOrders", fields: [employerId], references: [id])
+  workerId          String?
+  worker            User?       @relation("WorkerOrders", fields: [workerId], references: [id])
+
+  // 订单信息
+  title             String
+  description       String
+  serviceCategory   String
+  skills            String[]
+
+  // 地址信息
+  address           String
+  latitude          Float
+  longitude         Float
+  city              String?
+  district          String?
+
+  // 时间安排
+  scheduledStart    DateTime
+  scheduledEnd      DateTime?
+  actualStart       DateTime?
+  actualEnd         DateTime?
+
+  // 费用
+  salaryType        SalaryType
+  expectedSalary    Decimal     @db.Decimal(12, 2)
+  finalSalary       Decimal?    @db.Decimal(12, 2)
+  platformFee       Decimal     @default(0) @db.Decimal(12, 2)
+
+  // 订单状态
+  status            OrderStatus @default(PENDING)
+  dispatchStatus    DispatchStatus @default(UNASSIGNED)
+
+  // 紧急程度
+  urgencyLevel      UrgencyLevel @default(NORMAL)
+
+  // 特殊要求
+  requirements      Json?
+
+  // 审核信息
+  verifiedBy        String?
+  verifiedAt        DateTime?
+
+  // 派单记录
+  dispatchRecords   DispatchRecord[]
+
+  // 评价
+  evaluations      Evaluation[]
+
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  completedAt       DateTime?
+
+  @@index([employerId])
+  @@index([workerId])
+  @@index([status])
+  @@index([dispatchStatus])
+  @@index([scheduledStart])
+  @@index([city, status])
+}
+
+enum SalaryType {
+  HOURLY      // 按小时
+  DAILY       // 按天
+  FIXED       // 固定价格
+}
+
+enum OrderStatus {
+  PENDING       // 待接单
+  ACCEPTED      // 已接单
+  IN_PROGRESS   // 进行中
+  COMPLETED     // 已完成
+  EVALUATED    // 已评价
+  CANCELED     // 已取消
+  DISPUTED     // 有争议
+}
+
+enum DispatchStatus {
+  UNASSIGNED     // 未派单
+  PENDING_ACCEPT // 待接受
+  ASSIGNED       // 已派单
+  REJECTED       // 被拒绝
+  TIMEOUT        // 超时
+}
+
+enum UrgencyLevel {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+// 派单记录
+model DispatchRecord {
+  id              String        @id @default(cuid())
+  orderId         String
+  order           Order         @relation(fields: [orderId], references: [id])
+  workerId        String
+  worker          User          @relation(fields: [workerId], references: [id])
+
+  // 派单信息
+  dispatchType    DispatchType
+  priorityScore   Float
+
+  // 地理位置
+  distance        Float?
+
+  // 时间信息
+  dispatchedAt    DateTime      @default(now())
+  respondedAt     DateTime?
+  acceptDeadline  DateTime
+
+  // 响应结果
+  status          DispatchRecordStatus @default(PENDING)
+  rejectReason    String?
+
+  createdAt       DateTime      @default(now())
+
+  @@index([orderId])
+  @@index([workerId])
+  @@index([status])
+  @@index([dispatchedAt])
+}
+
+enum DispatchType {
+  SYSTEM_AUTO     // 系统自动派单
+  MANUAL_SELECT   // 手动选择派单
+  NEAREST_PRIO    // 最近优先派单
+  HIGH_RATING     // 高评分优先
+}
+
+enum DispatchRecordStatus {
+  PENDING       // 待响应
+  ACCEPTED      // 已接受
+  REJECTED      // 已拒绝
+  TIMEOUT       // 超时未响应
+  CANCELED      // 已取消
+}
+
+// 评价
+model Evaluation {
+  id              String        @id @default(cuid())
+  orderId         String
+  order           Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  // 评价方
+  reviewerId      String
+  reviewer        User          @relation("ReviewerEvaluations", fields: [reviewerId], references: [id])
+
+  revieweeId      String
+  reviewee        User          @relation("RevieweeEvaluations", fields: [revieweeId], references: [id])
+
+  // 评价类型
+  evaluationType  EvaluationType
+
+  // 评分
+  overallRating   Int
+  punctuality     Int?
+  quality         Int?
+  attitude        Int?
+
+  // 评价内容
+  comment         String?
+  tags            String[]
+
+  // 匿名
+  isAnonymous     Boolean       @default(false)
+
+  createdAt       DateTime      @default(now())
+
+  @@unique([orderId, reviewerId])
+  @@index([revieweeId])
+}
+
+enum EvaluationType {
+  WORKER_TO_EMPLOYER
+  EMPLOYER_TO_WORKER
+}
+
+// 钱包
+model Wallet {
+  id              String      @id @default(cuid())
+  userId          String
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  balance         Decimal     @default(0) @db.Decimal(12, 2)
+  frozenBalance   Decimal     @default(0) @db.Decimal(12, 2)
+
+  withdrawEnabled Boolean     @default(true)
+  minWithdraw     Decimal     @default(10) @db.Decimal(12, 2)
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  transactions    Transaction[]
+
+  @@unique([userId])
+}
+
+// 交易记录
+model Transaction {
+  id              String          @id @default(cuid())
+  walletId        String
+  wallet          Wallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  amount          Decimal         @db.Decimal(12, 2)
+  type            TransactionType
+  status          TransactionStatus @default(PENDING)
+
+  orderId         String?
+  relatedWalletId String?
+
+  paymentMethod   PaymentMethod?
+  transactionNo   String?
+
+  description     String?
+
+  createdAt       DateTime        @default(now())
+  completedAt     DateTime?
+
+  @@index([walletId])
+  @@index([orderId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum TransactionType {
+  DEPOSIT         // 充值
+  WITHDRAW        // 提现
+  ORDER_PAY       // 订单支付
+  ORDER_RECEIVE   // 订单收入
+  REFUND          // 退款
+  PLATFORM_FEE    // 平台手续费
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum PaymentMethod {
+  WECHAT
+  ALIPAY
+  BANK_CARD
+  BALANCE
+}
+
+// 设备信息
+model Device {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+
+  deviceToken     String
+  platform        String
+  appVersion      String?
+
+  lastActiveAt    DateTime  @default(now())
+
+  @@unique([deviceToken])
+  @@index([userId])
+}
+
+// 通知
+model Notification {
+  id              String          @id @default(cuid())
+  userId          String
+  user            User            @relation(fields: [userId], references: [id])
+
+  type            NotificationType
+  title           String
+  content         String
+  data            Json?
+
+  isRead          Boolean         @default(false)
+  readAt          DateTime?
+
+  createdAt       DateTime        @default(now())
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+enum NotificationType {
+  ORDER_DISPATCH
+  ORDER_ACCEPTED
+  ORDER_STARTED
+  ORDER_COMPLETED
+  ORDER_CANCELED
+  EVALUATION_RECEIVED
+  WITHDRAW_SUCCESS
+  SYSTEM
+}
+
+// 系统配置
+model SystemConfig {
+  id              String    @id @default(cuid())
+  key             String    @unique
+  value           Json
+  description     String?
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}

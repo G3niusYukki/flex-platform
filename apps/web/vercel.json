@@ -3,7 +3,10 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "regions": ["iad1"],
+  "framework": "nextjs",
+  "regions": [
+    "iad1"
+  ],
   "headers": [
     {
       "source": "/(.*)",
