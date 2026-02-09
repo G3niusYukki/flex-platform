@@ -154,11 +154,11 @@ function AITypingMessage() {
 
   return (
     <div className="flex items-start gap-3">
-      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/30">
         <Bot className="h-4 w-4 text-white" />
       </div>
-      <div className="glass-dark rounded-2xl rounded-tl-none px-4 py-2 max-w-[240px]">
-        <p className="text-sm text-slate-700">
+      <div className="bg-white/95 backdrop-blur-xl rounded-2xl rounded-tl-none px-4 py-2 max-w-[240px] shadow-lg border border-white/50">
+        <p className="text-sm text-slate-700 font-medium">
           {displayText}
           <span className="inline-block w-1 h-4 bg-violet-500 ml-1 animate-pulse" />
         </p>
@@ -242,40 +242,40 @@ export default function HomePage() {
         </div>
 
         {/* AI 状态卡片 - 右上角 */}
-        <div className="hidden lg:block absolute top-32 right-20 glass rounded-2xl p-4 shadow-xl animate-float border border-white/20">
+        <div className="hidden lg:block absolute top-32 right-20 bg-white/95 backdrop-blur-xl rounded-2xl p-4 shadow-xl animate-float border border-white/50">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg">
               <Brain className="h-6 w-6 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">AI 核心运行中</p>
-              <p className="text-xs text-slate-300">已学习 100万+ 案例</p>
+              <p className="text-sm font-bold text-slate-900">AI 核心运行中</p>
+              <p className="text-xs text-slate-600">已学习 100万+ 案例</p>
             </div>
           </div>
         </div>
 
         {/* 完成订单卡片 - 右下 */}
-        <div className="hidden lg:block absolute bottom-40 right-32 glass rounded-2xl p-4 shadow-xl animate-float-delayed border border-white/20">
+        <div className="hidden lg:block absolute bottom-40 right-32 bg-white/95 backdrop-blur-xl rounded-2xl p-4 shadow-xl animate-float-delayed border border-white/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-lg">
               <CheckCircle className="h-5 w-5 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">AI 派单完成</p>
-              <p className="text-xs text-slate-300">刚刚 · 匹配耗时 3.2s</p>
+              <p className="text-sm font-bold text-slate-900">AI 派单完成</p>
+              <p className="text-xs text-slate-600">刚刚 · 匹配耗时 3.2s</p>
             </div>
           </div>
         </div>
 
         {/* 评分卡片 - 左下 */}
-        <div className="hidden lg:block absolute bottom-32 left-20 glass rounded-2xl p-4 shadow-xl animate-float border border-white/20">
+        <div className="hidden lg:block absolute bottom-32 left-20 bg-white/95 backdrop-blur-xl rounded-2xl p-4 shadow-xl animate-float border border-white/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg">
               <Star className="h-5 w-5 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">人类满意度</p>
-              <p className="text-xs text-slate-300">99.2% · 来自 5万+ 评价</p>
+              <p className="text-sm font-bold text-slate-900">人类满意度</p>
+              <p className="text-xs text-slate-600">99.2% · 来自 5万+ 评价</p>
             </div>
           </div>
         </div>
@@ -283,14 +283,16 @@ export default function HomePage() {
         <div className="container relative z-10 mx-auto px-4 py-20">
           <div className="max-w-4xl mx-auto text-center">
             {/* AI 状态指示器 */}
-            <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-8 border border-white/20 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-xl rounded-full px-4 py-2 mb-6 md:mb-8 border border-white/50 shadow-lg animate-fade-in-up">
               <AIStatusIndicator />
             </div>
 
             {/* 主标题 */}
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 animate-fade-in-up leading-tight" style={{ animationDelay: '0.1s' }}>
               <span className="text-white">AI 智能</span>
-              <br />
+              <br className="sm:hidden" />
+              <span className="sm:hidden text-white"> </span>
+              <br className="hidden sm:block" />
               <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
                 雇佣平台
               </span>
@@ -305,10 +307,10 @@ export default function HomePage() {
             </p>
 
             {/* CTA 按钮 */}
-            <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               <Link
                 href="/jobs"
-                className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-violet-500/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                className="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-xl font-semibold text-base sm:text-lg hover:shadow-lg hover:shadow-violet-500/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden touch-target"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <Bot className="h-5 w-5" />
@@ -319,7 +321,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/register"
-                className="inline-flex items-center gap-2 px-8 py-4 glass text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition-all duration-300 border border-white/20"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white/15 backdrop-blur-xl text-white rounded-xl font-semibold text-base sm:text-lg hover:bg-white/25 transition-all duration-300 border border-white/30 touch-target"
               >
                 加入 AI 网络
               </Link>
@@ -327,18 +329,18 @@ export default function HomePage() {
             </div>
 
             {/* 信任标识 */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-8 sm:mt-12 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
               <div className="flex items-center gap-2 text-slate-400">
                 <CheckCircle className="h-4 w-4 text-green-400" />
-                <span className="text-sm">神经网络 v3.0</span>
+                <span className="text-xs sm:text-sm">神经网络 v3.0</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-400">
+              <div className="hidden sm:flex items-center gap-2 text-slate-400">
                 <CheckCircle className="h-4 w-4 text-green-400" />
                 <span className="text-sm">实时学习优化</span>
               </div>
               <div className="flex items-center gap-2 text-slate-400">
                 <CheckCircle className="h-4 w-4 text-green-400" />
-                <span className="text-sm">毫秒级响应</span>
+                <span className="text-xs sm:text-sm">毫秒级响应</span>
               </div>
             </div>
           </div>
