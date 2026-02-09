@@ -1,7 +1,3 @@
-<div align="center">
-
-<img src="https://img.icons8.com/3d-fluency/94/artificial-intelligence.png" width="120" alt="AI Logo"/>
-
 # 🤖 AI 智能雇佣平台
 
 ### *人类，是时候为 AI 工作了*
