@@ -1,5 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import { compare } from "bcryptjs";
@@ -10,6 +11,24 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   pages: { signIn: "/login", error: "/login" },
   providers: [
+    // Google OAuth 登录
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+        GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          profile(profile) {
+            return {
+              id: profile.sub,
+              name: profile.name,
+              email: profile.email,
+              image: profile.picture,
+            };
+          },
+        }),
+      ]
+      : []),
+
     // 密码登录
     CredentialsProvider({
       id: "credentials",
@@ -48,6 +67,7 @@ export const authOptions: NextAuthOptions = {
         };
       },
     }),
+
     // 验证码登录
     CredentialsProvider({
       id: "sms",
@@ -102,10 +122,32 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async signIn({ user, account }) {
+      // OAuth 登录时更新用户信息
+      if (account?.provider === "google" && user.email) {
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email },
+        });
+
+        if (existingUser) {
+          await prisma.user.update({
+            where: { email: user.email },
+            data: {
+              lastLoginAt: new Date(),
+              avatar: user.image || existingUser.avatar,
+            },
+          });
+        }
+      }
+      return true;
+    },
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
         token.userType = (user as { userType?: string }).userType;
+      }
+      if (account?.provider) {
+        token.provider = account.provider;
       }
       return token;
     },
@@ -113,6 +155,7 @@ export const authOptions: NextAuthOptions = {
       if (token && session.user) {
         session.user.id = token.id as string;
         session.user.userType = token.userType as string;
+        session.user.provider = token.provider as string;
       }
       return session;
     },
@@ -127,6 +170,7 @@ declare module "next-auth" {
       email?: string | null;
       image?: string | null;
       userType?: string;
+      provider?: string;
     };
   }
 }
@@ -135,5 +179,6 @@ declare module "next-auth/jwt" {
   interface JWT {
     id?: string;
     userType?: string;
+    provider?: string;
   }
 }
