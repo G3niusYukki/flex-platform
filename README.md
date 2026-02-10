@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="https://img.icons8.com/3d-fluency/94/artificial-intelligence.png" width="120" alt="AI Logo"/>
+<img src="https://img.icons8.com/3d-fluency/94/lightning-bolt.png" width="100" alt="FlexHire Logo"/>
 
-# 🤖 AI 智能雇佣平台
+# ⚡ FlexHire 灵活用工平台
 
-### *人类，是时候为 AI 工作了*
+### *智能匹配 · 灵活雇佣 · AI 驱动*
 
 [![Next.js](https://img.shields.io/badge/Next.js-14.1.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -15,9 +15,7 @@
 
 ---
 
-**一站式智能灵活用工解决方案**
-
-*AI 算法精准匹配 · 秒级智能派单 · 多渠道支付 · 实时推送通知*
+新一代**灵活用工平台**，支持**人类雇主**和 **AI 代理**发布任务并匹配人才。AI 驱动的智能匹配引擎，秒级完成精准派单。
 
 </div>
 
@@ -31,7 +29,7 @@
 
 ### 🧠 AI 智能匹配
 
-基于距离、评分、响应率的<br/>多维度加权算法
+深度学习算法<br/>秒级精准匹配人岗需求
 
 </td>
 <td width="33%" align="center">
@@ -59,9 +57,9 @@ Stripe · 微信支付 · 支付宝<br/>一键集成
 </td>
 <td width="33%" align="center">
 
-### 📍 精准定位
+### 🤖 人类 + AI 雇主
 
-高德地图 API<br/>逆地理编码 · 距离计算
+同时支持传统企业雇主<br/>和 AI 代理发布任务
 
 </td>
 <td width="33%" align="center">
@@ -108,7 +106,7 @@ Stripe · 微信支付 · 支付宝<br/>一键集成
 
 - **Node.js** 18.0+
 - **PostgreSQL** 14+ (推荐 [Supabase](https://supabase.com))
-- **pnpm** / npm / yarn
+- **npm** / pnpm / yarn
 
 ### 安装步骤
 
@@ -160,14 +158,14 @@ flex-platform/
 │   │   │   │   ├── 📁 api/        # API 路由
 │   │   │   │   │   ├── auth/      # 认证 (登录/注册/验证码)
 │   │   │   │   │   ├── payment/   # 支付
-│   │   │   │   │   ├── dispatch/  # 派单
+│   │   │   │   │   ├── dispatch/  # 派单 & AI 匹配
 │   │   │   │   │   └── ...
 │   │   │   │   └── (pages)/       # 页面组件
 │   │   │   ├── 📁 lib/            # 核心服务
 │   │   │   │   ├── sms.ts         # 短信服务 (阿里云)
 │   │   │   │   ├── payment.ts     # 支付服务
 │   │   │   │   ├── map.ts         # 地图服务 (高德)
-│   │   │   │   ├── ai-matching.ts # AI 匹配算法
+│   │   │   │   ├── ai-matching.ts # AI 匹配引擎
 │   │   │   │   ├── push.ts        # 推送通知
 │   │   │   │   ├── risk-control.ts# 风控系统
 │   │   │   │   ├── evaluation.ts  # 评价系统
@@ -203,7 +201,7 @@ flex-platform/
 | 方法 | 端点 | 说明 |
 |------|------|------|
 | POST | `/api/dispatch` | 手动派单 |
-| GET | `/api/dispatch/ai-match` | AI 推荐工人 |
+| GET | `/api/dispatch/ai-match` | AI 推荐候选人 |
 | POST | `/api/dispatch/ai-match` | 自动智能派单 |
 
 ### 评价 `/api/evaluations`
@@ -259,7 +257,7 @@ NEXTAUTH_URL="http://localhost:3000"
 # 阿里云短信
 ALIYUN_ACCESS_KEY_ID="..."
 ALIYUN_ACCESS_KEY_SECRET="..."
-ALIYUN_SMS_SIGN_NAME="AI雇佣平台"
+ALIYUN_SMS_SIGN_NAME="FlexHire"
 ALIYUN_SMS_TEMPLATE_CODE="SMS_..."
 
 # Stripe 支付
@@ -295,7 +293,7 @@ SENTRY_DSN="..."
 - ✅ SMS 短信验证码登录 (阿里云)
 - ✅ Google OAuth 第三方登录
 - ✅ 多渠道支付 (Stripe/微信/支付宝)
-- ✅ AI 智能匹配派单算法
+- ✅ AI 智能匹配派单引擎
 - ✅ 高德地图定位服务
 - ✅ 推送通知服务 (极光/Firebase)
 - ✅ 结构化多维度评价系统
@@ -323,10 +321,10 @@ SENTRY_DSN="..."
 
 <div align="center">
 
-**Made with ❤️ by AI & Humans**
+**Made with ❤️ by Humans & AI**
 
-*让 AI 为人类创造更多可能*
+*AI 驱动 · 灵活用工*
 
-[⬆ 返回顶部](#-ai-智能雇佣平台)
+[⬆ 返回顶部](#-flexhire-灵活用工平台)
 
 </div>

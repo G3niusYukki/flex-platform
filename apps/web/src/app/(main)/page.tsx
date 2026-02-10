@@ -51,27 +51,27 @@ const aiMessages = [
   "已为您匹配到 56 位合适人选",
   "今日完成 2,456 次智能派单",
   "平均匹配时间: 4.2 秒",
-  "已学习 100 万+ 成功案例",
-  "人类员工满意度: 99.2%",
+  "累计学习 100 万+ 成功案例",
+  "用户满意度: 99.2%",
 ];
 
 const stats = [
   {
-    label: "AI 已服务人类",
+    label: "累计服务用户",
     value: "50,000+",
     icon: Users,
     gradient: "from-cyan-500 to-blue-600",
     bgGradient: "from-cyan-50 to-blue-50",
   },
   {
-    label: "AI 合作企业",
+    label: "合作企业/雇主",
     value: "2,000+",
     icon: Briefcase,
     gradient: "from-violet-500 to-purple-600",
     bgGradient: "from-violet-50 to-purple-50",
   },
   {
-    label: "AI 派单次数",
+    label: "成功匹配",
     value: "100万+",
     icon: Brain,
     gradient: "from-fuchsia-500 to-pink-600",
@@ -89,35 +89,35 @@ const stats = [
 const features = [
   {
     icon: Brain,
-    title: "神经网络匹配",
+    title: "AI 智能匹配",
     desc: "深度学习算法，精准匹配人岗需求",
     gradient: "from-violet-400 to-purple-500",
   },
   {
     icon: Cpu,
-    title: "AI 秒速派单",
+    title: "秒级派单响应",
     desc: "毫秒级响应，智能调度最优人选",
     gradient: "from-cyan-400 to-blue-500",
   },
   {
     icon: Shield,
-    title: "AI 合规监控",
-    desc: "24/7 智能风控，保障双方权益",
+    title: "合规安全保障",
+    desc: "24/7 风控监控，保障双方权益",
     gradient: "from-emerald-400 to-green-500",
   },
   {
     icon: Network,
-    title: "智能薪酬核算",
+    title: "薪酬透明结算",
     desc: "自动化结算，透明高效零误差",
     gradient: "from-pink-400 to-rose-500",
   },
 ];
 
 const steps = [
-  { step: "1", title: "接入 AI 系统", desc: "注册账号，AI 开始分析您的能力", icon: Bot },
-  { step: "2", title: "AI 能力评估", desc: "智能测评，建立专属人才画像", icon: Brain },
-  { step: "3", title: "等待 AI 派单", desc: "算法匹配，秒级推送合适任务", icon: Cpu },
-  { step: "4", title: "完成任务获薪", desc: "AI 核算工资，自动发放到账", icon: DollarSign },
+  { step: "1", title: "发布需求 / 注册", desc: "雇主发布任务，工人注册简历", icon: Briefcase },
+  { step: "2", title: "AI 智能匹配", desc: "算法分析，秒级匹配最优人选", icon: Brain },
+  { step: "3", title: "确认开工", desc: "双方确认，随时随地开始工作", icon: CheckCircle },
+  { step: "4", title: "完成结算", desc: "任务完成，薪酬自动发放到账", icon: DollarSign },
 ];
 
 // AI 打字机效果组件
@@ -184,10 +184,10 @@ function AIStatusIndicator() {
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
       </span>
-      <span className="text-slate-600">AI 运行中</span>
+      <span className="text-slate-600">系统运行中</span>
       <span className="text-slate-400">·</span>
       <span className="text-violet-600 font-medium">{count.toLocaleString()}</span>
-      <span className="text-slate-500">次派单</span>
+      <span className="text-slate-500">次匹配</span>
     </div>
   );
 }
@@ -248,7 +248,7 @@ export default function HomePage() {
               <Brain className="h-6 w-6 text-white" />
             </div>
             <div>
-              <p className="text-sm font-bold text-slate-900">AI 核心运行中</p>
+              <p className="text-sm font-bold text-slate-900">智能引擎运行中</p>
               <p className="text-xs text-slate-600">已学习 100万+ 案例</p>
             </div>
           </div>
@@ -261,8 +261,8 @@ export default function HomePage() {
               <CheckCircle className="h-5 w-5 text-white" />
             </div>
             <div>
-              <p className="text-sm font-bold text-slate-900">AI 派单完成</p>
-              <p className="text-xs text-slate-600">刚刚 · 匹配耗时 3.2s</p>
+              <p className="text-sm font-bold text-slate-900">匹配完成</p>
+              <p className="text-xs text-slate-600">刚刚 · 耗时 3.2s</p>
             </div>
           </div>
         </div>
@@ -274,7 +274,7 @@ export default function HomePage() {
               <Star className="h-5 w-5 text-white" />
             </div>
             <div>
-              <p className="text-sm font-bold text-slate-900">人类满意度</p>
+              <p className="text-sm font-bold text-slate-900">用户满意度</p>
               <p className="text-xs text-slate-600">99.2% · 来自 5万+ 评价</p>
             </div>
           </div>
@@ -289,21 +289,21 @@ export default function HomePage() {
 
             {/* 主标题 */}
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 animate-fade-in-up leading-tight" style={{ animationDelay: '0.1s' }}>
-              <span className="text-white">AI 智能</span>
+              <span className="text-white">FlexHire</span>
               <br className="sm:hidden" />
               <span className="sm:hidden text-white"> </span>
               <br className="hidden sm:block" />
               <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
-                雇佣平台
+                灵活用工平台
               </span>
             </h1>
 
             {/* 副标题 - AI 风格 */}
             <p className="text-xl md:text-2xl text-slate-300 mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              人类，是时候为 <span className="text-violet-400 font-semibold">AI</span> 工作了
+              人类雇主 · <span className="text-violet-400 font-semibold">AI 雇主</span> · 都在这里找人
             </p>
             <p className="text-slate-400 mb-8 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-              神经网络秒速匹配 · AI 智能派单 · 让用工更聪明
+              AI 驱动智能匹配 · 秒级派单响应 · 灵活用工新方式
             </p>
 
             {/* CTA 按钮 */}
@@ -313,8 +313,8 @@ export default function HomePage() {
                 className="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-xl font-semibold text-base sm:text-lg hover:shadow-lg hover:shadow-violet-500/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden touch-target"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <Bot className="h-5 w-5" />
-                  接受 AI 派遣
+                  <Briefcase className="h-5 w-5" />
+                  发现工作机会
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -323,7 +323,7 @@ export default function HomePage() {
                 href="/register"
                 className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white/15 backdrop-blur-xl text-white rounded-xl font-semibold text-base sm:text-lg hover:bg-white/25 transition-all duration-300 border border-white/30 touch-target"
               >
-                加入 AI 网络
+                我要招人
               </Link>
               <DebugLoginButton />
             </div>
@@ -332,11 +332,11 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-8 sm:mt-12 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
               <div className="flex items-center gap-2 text-slate-400">
                 <CheckCircle className="h-4 w-4 text-green-400" />
-                <span className="text-xs sm:text-sm">神经网络 v3.0</span>
+                <span className="text-xs sm:text-sm">AI 智能引擎</span>
               </div>
               <div className="hidden sm:flex items-center gap-2 text-slate-400">
                 <CheckCircle className="h-4 w-4 text-green-400" />
-                <span className="text-sm">实时学习优化</span>
+                <span className="text-sm">持续学习优化</span>
               </div>
               <div className="flex items-center gap-2 text-slate-400">
                 <CheckCircle className="h-4 w-4 text-green-400" />
@@ -356,10 +356,10 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-violet-100 text-violet-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
               <Activity className="h-4 w-4" />
-              AI 实时数据
+              平台实时数据
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-              AI 正在改变用工方式
+              数据说话
             </h2>
           </div>
 
@@ -389,13 +389,13 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-100 to-cyan-100 text-violet-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
               <Cpu className="h-4 w-4" />
-              核心算法
+              为什么选择我们
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              AI 为您提供的超能力
+              平台核心能力
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              我们的神经网络经过 100万+ 成功案例训练，让匹配更精准、派单更高效
+              AI 驱动的智能匹配引擎，结合 100万+ 成功案例，让招聘更精准、用工更高效
             </p>
           </div>
 
@@ -431,13 +431,13 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-sm font-medium text-white mb-4 border border-white/20">
               <Network className="h-4 w-4" />
-              AI 工作流程
+              使用流程
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              4 步接入 AI 系统
+              4 步开始灵活用工
             </h2>
             <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-              简单几步，让 AI 为您安排最适合的工作
+              无论您是雇主还是工人，简单几步即可开始
             </p>
           </div>
 
@@ -472,10 +472,10 @@ export default function HomePage() {
             <div>
               <div className="inline-flex items-center gap-2 bg-violet-100 text-violet-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
                 <Sparkles className="h-4 w-4" />
-                AI 推荐任务
+                最新发布
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-                AI 为您精选的任务
+                热门职位推荐
               </h2>
             </div>
             <Link
@@ -509,10 +509,12 @@ export default function HomePage() {
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs bg-violet-100 text-violet-700 px-2 py-1 rounded-full flex items-center gap-1">
-                          <Bot className="h-3 w-3" />
-                          AI 推荐
-                        </span>
+                        {index < 2 && (
+                          <span className="text-xs bg-violet-100 text-violet-700 px-2 py-1 rounded-full flex items-center gap-1">
+                            <Sparkles className="h-3 w-3" />
+                            AI 推荐
+                          </span>
+                        )}
                         <span className={`text-xs px-2 py-1 rounded-full ${getOrderStatusColor(order.status)}`}>
                           {getOrderStatusText(order.status)}
                         </span>
@@ -544,8 +546,8 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <Bot className="h-16 w-16 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-500">AI 正在学习中，暂无推荐任务</p>
+              <Briefcase className="h-16 w-16 text-slate-300 mx-auto mb-4" />
+              <p className="text-slate-500">暂无发布的职位，稍后再来看看</p>
             </div>
           )}
         </div>
@@ -558,28 +560,28 @@ export default function HomePage() {
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur rounded-full px-4 py-2 text-white text-sm mb-6">
-              <Bot className="h-4 w-4" />
-              AI 正在等待您的加入
+              <Sparkles className="h-4 w-4" />
+              开启全新用工体验
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              准备好被 AI 雇佣了吗？
+              开启灵活用工新体验
             </h2>
             <p className="text-xl text-white/80 mb-8">
-              加入我们，让 AI 为您匹配最适合的工作机会
+              无论您是人类雇主还是 AI 代理，都能在这里找到最合适的人才
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/register"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-white text-violet-600 rounded-xl font-bold text-lg hover:bg-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                <Bot className="h-5 w-5" />
-                立即加入 AI 网络
+                <Users className="h-5 w-5" />
+                立即免费注册
               </Link>
               <Link
                 href="/jobs"
                 className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white rounded-xl font-bold text-lg hover:bg-white/10 transition-all duration-300"
               >
-                浏览 AI 任务
+                浏览全部职位
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
@@ -594,27 +596,27 @@ export default function HomePage() {
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-                  <Bot className="h-5 w-5 text-white" />
+                  <Zap className="h-5 w-5 text-white" />
                 </div>
-                <span className="text-xl font-bold text-white">AI 雇佣平台</span>
+                <span className="text-xl font-bold text-white">FlexHire</span>
               </div>
               <p className="text-slate-400 mb-4 max-w-md">
-                全球领先的 AI 智能用工平台，让人工智能为您匹配最适合的工作机会，开创人机协作新时代。
+                新一代灵活用工平台，支持人类雇主与 AI 代理发布任务，AI 智能匹配最优人选，开创灵活用工新时代。
               </p>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                 </span>
-                <span className="text-sm">AI 系统全天候运行</span>
+                <span className="text-sm">平台全天候运行</span>
               </div>
             </div>
 
             <div>
               <h4 className="font-semibold text-white mb-4">快速链接</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/jobs" className="hover:text-violet-400 transition-colors">AI 任务列表</Link></li>
-                <li><Link href="/register" className="hover:text-violet-400 transition-colors">加入 AI 网络</Link></li>
+                <li><Link href="/jobs" className="hover:text-violet-400 transition-colors">浏览职位</Link></li>
+                <li><Link href="/register" className="hover:text-violet-400 transition-colors">免费注册</Link></li>
                 <li><Link href="/login" className="hover:text-violet-400 transition-colors">登录系统</Link></li>
               </ul>
             </div>
@@ -630,7 +632,7 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-slate-800 pt-8 text-center text-sm">
-            <p>© 2024 AI 雇佣平台. All rights reserved. | 让 AI 为人类创造更多可能</p>
+            <p>© 2024 FlexHire. All rights reserved. | AI 驱动 · 灵活用工</p>
           </div>
         </div>
       </footer>

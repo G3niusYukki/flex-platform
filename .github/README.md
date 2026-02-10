@@ -1,70 +1,72 @@
-# 🤖 AI 智能雇佣平台
+<div align="center">
 
-### *人类，是时候为 AI 工作了*
+<img src="https://img.icons8.com/3d-fluency/94/lightning-bolt.png" width="100" alt="FlexHire Logo"/>
+
+# ⚡ FlexHire — AI-Powered Flexible Workforce Platform
+
+### *Smart Matching · Flexible Hiring · AI-Driven*
 
 [![Next.js](https://img.shields.io/badge/Next.js-14.1.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-5.22-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-[🌐 在线演示](https://flex-platform-web.vercel.app) · [📖 API 文档](#api-端点) · [🚀 快速部署](#部署指南)
+[🌐 Live Demo](https://flex-platform-web.vercel.app) · [📖 API Docs](#-api-endpoints) · [🚀 Deploy](#-deployment)
 
 ---
 
-**一站式智能灵活用工解决方案**
-
-*AI 算法精准匹配 · 秒级智能派单 · 多渠道支付 · 实时推送通知*
+A next-generation **flexible workforce marketplace** where both **human employers** and **AI agents** can post jobs and find talent. Our AI-powered matching engine connects the right people with the right opportunities — instantly.
 
 </div>
 
 ---
 
-## ✨ 核心特性
+## ✨ Key Features
 
 <table>
 <tr>
 <td width="33%" align="center">
 
-### 🧠 AI 智能匹配
+### 🧠 AI Smart Matching
 
-基于距离、评分、响应率的<br/>多维度加权算法
-
-</td>
-<td width="33%" align="center">
-
-### ⚡ 秒级派单
-
-毫秒级响应<br/>自动匹配最优人选
+Deep learning algorithm matches<br/>candidates to jobs in seconds
 
 </td>
 <td width="33%" align="center">
 
-### 🛡️ 安全可靠
+### ⚡ Instant Dispatch
 
-AES-256 加密 · 风控系统<br/>短信验证 · OAuth 登录
+Sub-second response time<br/>with optimal candidate selection
+
+</td>
+<td width="33%" align="center">
+
+### 🛡️ Secure & Compliant
+
+AES-256 encryption · Risk control<br/>SMS verification · OAuth login
 
 </td>
 </tr>
 <tr>
 <td width="33%" align="center">
 
-### 💰 多渠道支付
+### 💰 Multi-Channel Payments
 
-Stripe · 微信支付 · 支付宝<br/>一键集成
-
-</td>
-<td width="33%" align="center">
-
-### 📍 精准定位
-
-高德地图 API<br/>逆地理编码 · 距离计算
+Stripe · WeChat Pay · Alipay<br/>One-click integration
 
 </td>
 <td width="33%" align="center">
 
-### 📬 实时推送
+### 🤖 Human + AI Employers
 
-极光 / Firebase<br/>订单状态实时通知
+Support for traditional employers<br/>and AI agent job posting
+
+</td>
+<td width="33%" align="center">
+
+### 📬 Real-Time Notifications
+
+JPush / Firebase<br/>Live order status updates
 
 </td>
 </tr>
@@ -72,25 +74,25 @@ Stripe · 微信支付 · 支付宝<br/>一键集成
 
 ---
 
-## 🏗️ 系统架构
+## 🏗️ Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         前端应用层                                │
+│                      Frontend Layer                              │
 ├────────────────────────────┬────────────────────────────────────┤
-│   📱 用户端 (Next.js 14)    │    🔧 管理后台 (Next.js 14)         │
+│   📱 Web App (Next.js 14)  │    🔧 Admin Panel (Next.js 14)     │
 │   apps/web                 │    apps/admin                      │
 └────────────────────────────┴────────────────────────────────────┘
                                     │
 ┌─────────────────────────────────────────────────────────────────┐
-│                         服务层 (API Routes)                       │
+│                      Service Layer (API Routes)                  │
 ├─────────┬─────────┬─────────┬─────────┬─────────┬───────────────┤
 │  Auth   │ Payment │   Map   │   AI    │  Push   │  Evaluation   │
-│  认证   │  支付    │  地图   │  匹配   │  推送   │    评价        │
+│         │         │         │ Match   │         │               │
 └─────────┴─────────┴─────────┴─────────┴─────────┴───────────────┘
                                     │
 ┌─────────────────────────────────────────────────────────────────┐
-│                         数据层                                    │
+│                        Data Layer                                │
 ├─────────────────────────────┬───────────────────────────────────┤
 │   PostgreSQL (Supabase)     │     Prisma ORM                    │
 └─────────────────────────────┴───────────────────────────────────┘
@@ -98,139 +100,139 @@ Stripe · 微信支付 · 支付宝<br/>一键集成
 
 ---
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 环境要求
+### Prerequisites
 
 - **Node.js** 18.0+
-- **PostgreSQL** 14+ (推荐 [Supabase](https://supabase.com))
-- **pnpm** / npm / yarn
+- **PostgreSQL** 14+ (recommended: [Supabase](https://supabase.com))
+- **npm** / pnpm / yarn
 
-### 安装步骤
+### Installation
 
 ```bash
-# 1️⃣ 克隆项目
+# 1. Clone the repository
 git clone https://github.com/G3niusYukki/flex-platform.git
 cd flex-platform
 
-# 2️⃣ 安装依赖
+# 2. Install dependencies
 npm install
 
-# 3️⃣ 配置环境变量
+# 3. Configure environment variables
 cp .env.example apps/web/.env
-# 编辑 apps/web/.env，填入必要配置
+# Edit apps/web/.env with your configuration
 
-# 4️⃣ 初始化数据库
+# 4. Initialize the database
 cd apps/web
 npx prisma db push
 npx ts-node prisma/seed.ts
 
-# 5️⃣ 启动开发服务器
+# 5. Start the dev server
 npm run dev
 ```
 
-### 访问地址
+### Access Points
 
-| 应用 | 地址 | 说明 |
-|------|------|------|
-| 🌐 用户端 | http://localhost:3000 | 求职者/雇主入口 |
-| 🔧 管理后台 | http://localhost:3001 | 运营管理 |
+| App | URL | Description |
+|-----|-----|-------------|
+| 🌐 Web App | http://localhost:3000 | Job seeker / employer portal |
+| 🔧 Admin Panel | http://localhost:3001 | Operations management |
 
-### 测试账号
+### Test Accounts
 
-| 角色 | 账号 | 密码 |
-|------|------|------|
-| 📱 测试用户 | `13800138000` | `123456` |
-| 👤 管理员 | `admin` | `admin123` |
+| Role | Account | Password |
+|------|---------|----------|
+| 📱 Test User | `13800138000` | `123456` |
+| 👤 Admin | `admin` | `admin123` |
 
 ---
 
-## 📂 项目结构
+## 📂 Project Structure
 
 ```
 flex-platform/
 ├── 📁 apps/
-│   ├── 📁 web/                    # 用户端应用
+│   ├── 📁 web/                    # Web application
 │   │   ├── 📁 src/
 │   │   │   ├── 📁 app/            # Next.js App Router
-│   │   │   │   ├── 📁 api/        # API 路由
-│   │   │   │   │   ├── auth/      # 认证 (登录/注册/验证码)
-│   │   │   │   │   ├── payment/   # 支付
-│   │   │   │   │   ├── dispatch/  # 派单
+│   │   │   │   ├── 📁 api/        # API routes
+│   │   │   │   │   ├── auth/      # Authentication
+│   │   │   │   │   ├── payment/   # Payments
+│   │   │   │   │   ├── dispatch/  # Job dispatch & AI matching
 │   │   │   │   │   └── ...
-│   │   │   │   └── (pages)/       # 页面组件
-│   │   │   ├── 📁 lib/            # 核心服务
-│   │   │   │   ├── sms.ts         # 短信服务 (阿里云)
-│   │   │   │   ├── payment.ts     # 支付服务
-│   │   │   │   ├── map.ts         # 地图服务 (高德)
-│   │   │   │   ├── ai-matching.ts # AI 匹配算法
-│   │   │   │   ├── push.ts        # 推送通知
-│   │   │   │   ├── risk-control.ts# 风控系统
-│   │   │   │   ├── evaluation.ts  # 评价系统
-│   │   │   │   └── crypto.ts      # 数据加密
-│   │   │   └── 📁 components/     # UI 组件
-│   │   └── 📁 prisma/             # 数据库模型
-│   └── 📁 admin/                  # 管理后台
-└── 📄 package.json                # 工作区配置
+│   │   │   │   └── (pages)/       # Page components
+│   │   │   ├── 📁 lib/            # Core services
+│   │   │   │   ├── sms.ts         # SMS (Aliyun)
+│   │   │   │   ├── payment.ts     # Payment processing
+│   │   │   │   ├── map.ts         # Maps (AMap)
+│   │   │   │   ├── ai-matching.ts # AI matching engine
+│   │   │   │   ├── push.ts        # Push notifications
+│   │   │   │   ├── risk-control.ts# Risk control
+│   │   │   │   ├── evaluation.ts  # Review system
+│   │   │   │   └── crypto.ts      # Data encryption
+│   │   │   └── 📁 components/     # UI components
+│   │   └── 📁 prisma/             # Database models
+│   └── 📁 admin/                  # Admin panel
+└── 📄 package.json                # Workspace config
 ```
 
 ---
 
-## 🔌 API 端点
+## 🔌 API Endpoints
 
-### 认证 `/api/auth`
+### Auth `/api/auth`
 
-| 方法 | 端点 | 说明 |
-|------|------|------|
-| POST | `/api/auth/send-code` | 发送短信验证码 |
-| POST | `/api/auth/verify-code` | 校验验证码 |
-| POST | `/api/auth/register` | 用户注册 |
-| * | `/api/auth/[...nextauth]` | NextAuth 认证 |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/send-code` | Send SMS verification code |
+| POST | `/api/auth/verify-code` | Verify code |
+| POST | `/api/auth/register` | User registration |
+| * | `/api/auth/[...nextauth]` | NextAuth authentication |
 
-### 支付 `/api/payment`
+### Payment `/api/payment`
 
-| 方法 | 端点 | 说明 |
-|------|------|------|
-| POST | `/api/payment/create` | 创建支付订单 |
-| POST | `/api/payment/webhook/stripe` | Stripe 回调 |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/payment/create` | Create payment order |
+| POST | `/api/payment/webhook/stripe` | Stripe webhook |
 
-### 派单 `/api/dispatch`
+### Dispatch `/api/dispatch`
 
-| 方法 | 端点 | 说明 |
-|------|------|------|
-| POST | `/api/dispatch` | 手动派单 |
-| GET | `/api/dispatch/ai-match` | AI 推荐工人 |
-| POST | `/api/dispatch/ai-match` | 自动智能派单 |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/dispatch` | Manual dispatch |
+| GET | `/api/dispatch/ai-match` | AI-recommended workers |
+| POST | `/api/dispatch/ai-match` | Auto AI dispatch |
 
-### 评价 `/api/evaluations`
+### Evaluations `/api/evaluations`
 
-| 方法 | 端点 | 说明 |
-|------|------|------|
-| GET | `/api/evaluations?action=config` | 获取评价配置 |
-| GET | `/api/evaluations?userId=xxx` | 获取用户评价统计 |
-| POST | `/api/evaluations` | 提交评价 |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/evaluations?action=config` | Get evaluation config |
+| GET | `/api/evaluations?userId=xxx` | Get user evaluation stats |
+| POST | `/api/evaluations` | Submit evaluation |
 
 ---
 
-## 🌐 部署指南
+## 🌐 Deployment
 
-### Vercel 部署 (推荐)
+### Vercel (Recommended)
 
-1. Fork 本仓库到你的 GitHub
-2. 在 [Vercel](https://vercel.com) 创建新项目
-3. 导入仓库，设置：
-   - **Root Directory**: `apps/web` 或 `apps/admin`
+1. Fork this repository
+2. Create a new project on [Vercel](https://vercel.com)
+3. Import the repository:
+   - **Root Directory**: `apps/web` or `apps/admin`
    - **Framework Preset**: Next.js
-4. 添加环境变量（参考 `.env.example`）
-5. 部署！
+4. Add environment variables (see `.env.example`)
+5. Deploy!
 
-### Docker 部署
+### Docker
 
 ```bash
-# 构建镜像
+# Build
 docker build -t flex-platform .
 
-# 运行容器
+# Run
 docker run -p 3000:3000 \
   -e DATABASE_URL="postgresql://..." \
   -e NEXTAUTH_SECRET="..." \
@@ -239,41 +241,41 @@ docker run -p 3000:3000 \
 
 ---
 
-## ⚙️ 环境变量
+## ⚙️ Environment Variables
 
 <details>
-<summary><b>点击展开完整配置</b></summary>
+<summary><b>Click to expand full configuration</b></summary>
 
 ```bash
-# 数据库
+# Database
 DATABASE_URL="postgresql://..."
 
 # NextAuth
 NEXTAUTH_SECRET="..."
 NEXTAUTH_URL="http://localhost:3000"
 
-# 阿里云短信
+# Aliyun SMS
 ALIYUN_ACCESS_KEY_ID="..."
 ALIYUN_ACCESS_KEY_SECRET="..."
-ALIYUN_SMS_SIGN_NAME="AI雇佣平台"
+ALIYUN_SMS_SIGN_NAME="FlexHire"
 ALIYUN_SMS_TEMPLATE_CODE="SMS_..."
 
-# Stripe 支付
+# Stripe
 STRIPE_SECRET_KEY="sk_..."
 STRIPE_WEBHOOK_SECRET="whsec_..."
 
-# 高德地图
+# AMap (Maps)
 AMAP_WEB_KEY="..."
 
 # Google OAuth
 GOOGLE_CLIENT_ID="..."
 GOOGLE_CLIENT_SECRET="..."
 
-# 推送通知 (极光)
+# Push Notifications (JPush)
 JPUSH_APP_KEY="..."
 JPUSH_MASTER_SECRET="..."
 
-# Sentry 监控
+# Sentry Monitoring
 SENTRY_DSN="..."
 ```
 
@@ -281,48 +283,47 @@ SENTRY_DSN="..."
 
 ---
 
-## 🔄 更新日志
+## 🔄 Changelog
 
 ### v1.0.0 (2026-02-09)
 
-🎉 **首个正式版发布**
+🎉 **Initial Release**
 
-#### 新增功能
-- ✅ SMS 短信验证码登录 (阿里云)
-- ✅ Google OAuth 第三方登录
-- ✅ 多渠道支付 (Stripe/微信/支付宝)
-- ✅ AI 智能匹配派单算法
-- ✅ 高德地图定位服务
-- ✅ 推送通知服务 (极光/Firebase)
-- ✅ 结构化多维度评价系统
-- ✅ AES-256 敏感数据加密
-- ✅ 基础风控系统
-- ✅ Sentry 错误监控
-
----
-
-## 🤝 贡献指南
-
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'feat: add amazing feature'`)
-4. 推送分支 (`git push origin feature/amazing-feature`)
-5. 提交 Pull Request
+- ✅ SMS login (Aliyun)
+- ✅ Google OAuth
+- ✅ Multi-channel payments (Stripe / WeChat / Alipay)
+- ✅ AI smart matching & dispatch
+- ✅ AMap location services
+- ✅ Push notifications (JPush / Firebase)
+- ✅ Multi-dimensional review system
+- ✅ AES-256 data encryption
+- ✅ Risk control system
+- ✅ Sentry error monitoring
 
 ---
 
-## 📄 开源协议
+## 🤝 Contributing
 
-本项目采用 [MIT License](LICENSE) 开源协议
+1. Fork this repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by AI & Humans**
+**Made with ❤️ by Humans & AI**
 
-*让 AI 为人类创造更多可能*
+*AI-Driven · Flexible Hiring*
 
-[⬆ 返回顶部](#-ai-智能雇佣平台)
+[⬆ Back to top](#-flexhire--ai-powered-flexible-workforce-platform)
 
 </div>
