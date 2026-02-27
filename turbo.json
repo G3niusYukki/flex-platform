@@ -10,6 +10,13 @@
       "persistent": true
     },
     "lint": {},
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "test": {
+      "cache": false,
+      "outputs": ["coverage/**"]
+    },
     "db:generate": {},
     "db:push": {},
     "db:studio": {}
