@@ -7,6 +7,55 @@
 
 ---
 
+## [1.2.0] - 2026-02-27
+
+### 🚀 核心业务完善
+
+#### ✨ 新增功能
+
+**支付集成**
+
+- 微信支付 Native 二维码支付完整实现
+- 支付宝网页支付完整实现
+- Stripe/微信/支付宝统一支付 API
+- 支付回调处理
+
+**订单全流程**
+
+- 工人接单/拒单 API `/api/orders/action`
+- 订单开始/完成/取消操作
+- AI 智能派单 `/api/dispatch/ai-match`
+
+**Admin 仪表盘**
+
+- 真实数据 Dashboard API `/api/dashboard`
+- 用户管理 CRUD `/api/users`
+- 订单状态统计
+
+**Worker 端功能**
+
+- 工人订单列表 API `/api/worker/orders`
+- 工人个人资料 API `/api/worker/profile`
+- 在线状态管理
+
+**Employer 端功能**
+
+- 雇主订单列表 API `/api/employer/orders`
+- 雇主企业资料 API `/api/employer/profile`
+- 企业认证状态
+
+**钱包系统**
+
+- 钱包查询 API `/api/wallet`
+- 交易记录查询
+- 充值/提现申请
+
+#### 🔧 改进
+
+- Prisma schema 添加 STRIPE 支付方式、WORKER_ACCEPT 派单类型
+
+---
+
 ## [1.1.0] - 2026-02-27
 
 ### 🚀 基础设施升级
