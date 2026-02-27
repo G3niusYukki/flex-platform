@@ -7,6 +7,33 @@
 
 ---
 
+## [1.4.0] - 2026-02-27
+
+### 🚀 合规与商业化
+
+#### ✨ 新增功能
+
+**实名认证**
+
+- 实名认证状态字段 (realNameVerified, faceVerified)
+- 身份证信息存储 (idCardName, idCardNumber)
+
+**电子签约**
+
+- 电子签约功能字段 (eSignEnabled, eSignAccountId)
+
+**税务与发票**
+
+- 税务类型 (TaxType 枚举)
+- 税务登记信息
+- 发票信息字段
+
+#### 🔧 改进
+
+- Prisma schema 添加 TaxType 枚举
+
+---
+
 ## [1.3.0] - 2026-02-27
 
 ### 🚀 体验与智能化提升
