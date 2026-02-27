@@ -279,6 +279,7 @@ enum DispatchType {
   MANUAL_SELECT   // 手动选择派单
   NEAREST_PRIO    // 最近优先派单
   HIGH_RATING     // 高评分优先
+  WORKER_ACCEPT   // 工人自主接单
 }
 
 enum DispatchRecordStatus {
@@ -393,6 +394,7 @@ enum TransactionStatus {
 }
 
 enum PaymentMethod {
+  STRIPE
   WECHAT
   ALIPAY
   BANK_CARD

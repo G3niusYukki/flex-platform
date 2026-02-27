@@ -1,4 +1,11 @@
 const { withSentryConfig } = require("@sentry/nextjs");
+const withPWA = require("@ducanh2912/next-pwa").default({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  scope: "/",
+  sw: "service-worker.js",
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -6,6 +13,14 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
+
+  // PWA 配置
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    disable: process.env.NODE_ENV === "development",
+  },
 
   // Sentry 配置
   sentry: {
@@ -26,6 +41,8 @@ const sentryWebpackPluginOptions = {
 };
 
 // 如果配置了 Sentry，则启用 Sentry 包装
-module.exports = process.env.SENTRY_DSN
-  ? withSentryConfig(nextConfig, sentryWebpackPluginOptions)
-  : nextConfig;
+module.exports = withPWA(
+  process.env.SENTRY_DSN
+    ? withSentryConfig(nextConfig, sentryWebpackPluginOptions)
+    : nextConfig,
+);
