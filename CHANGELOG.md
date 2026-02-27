@@ -7,6 +7,47 @@
 
 ---
 
+## [1.1.0] - 2026-02-27
+
+### 🚀 基础设施升级
+
+#### ✨ 新增功能
+
+**测试基础设施**
+
+- 引入 Vitest + React Testing Library + Playwright
+- 35 个单元测试覆盖核心 lib 服务 (crypto, utils, map, risk-control)
+- 测试覆盖率目标 ≥ 70%
+
+**Redis 集成**
+
+- 短信验证码、设备 Token、风控记录迁移至 Redis
+- 自动降级到内存存储（开发/无 Redis 环境）
+
+**共享包**
+
+- `@flex-platform/constants` - 共享枚举和常量
+- `@flex-platform/utils` - 共享工具函数
+- `@flex-platform/ui` - 共享 UI 组件 (Button, Card)
+
+**状态管理**
+
+- Zustand stores: 用户 Store、通知 Store、订单 Store
+- 支持持久化 (localStorage)
+
+**CI/CD 增强**
+
+- GitHub Actions CI 工作流
+- 自动化 typecheck、lint、test、build
+- Redis 服务集成测试
+
+#### 🔧 改进
+
+- `.env.example` 新增 Redis 配置
+- 所有 package.json 新增 typecheck、test 脚本
+
+---
+
 ## [1.0.0] - 2026-02-09
 
 ### 🎉 首个正式版发布
@@ -14,12 +55,14 @@
 #### ✨ 新增功能
 
 **安全与认证**
+
 - SMS 短信验证码登录 (阿里云)
 - Google OAuth 第三方登录
 - AES-256-GCM 敏感数据加密
 - 基础风控系统 (登录/注册/订单异常检测)
 
 **支付集成**
+
 - Stripe 国际支付 (完整实现)
 - 微信支付框架
 - 支付宝框架
@@ -27,27 +70,32 @@
 - Stripe Webhook 回调处理
 
 **智能派单**
+
 - AI 智能匹配算法 (距离 × 评分 × 响应率)
 - 自动派单 `/api/dispatch/ai-match`
 - 候选工人推荐列表
 
 **地图服务**
+
 - 高德地图 API 集成
 - 逆地理编码 (坐标 → 地址)
 - 距离计算 (Haversine + 路线规划)
 
 **推送通知**
+
 - 极光推送 (JPush) 支持
 - Firebase Cloud Messaging 支持
 - 设备注册 API `/api/push/device`
 - 派单/完成/收款通知
 
 **评价系统**
+
 - 多维度结构化评分 (准时性/质量/态度/沟通)
 - 标签化评价
 - 评分统计分析
 
 **监控与日志**
+
 - Sentry 错误追踪集成
 - 会话回放 (Session Replay)
 

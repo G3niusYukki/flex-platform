@@ -14,19 +14,19 @@ export const authOptions: NextAuthOptions = {
     // Google OAuth 登录
     ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
       ? [
-        GoogleProvider({
-          clientId: process.env.GOOGLE_CLIENT_ID,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-          profile(profile) {
-            return {
-              id: profile.sub,
-              name: profile.name,
-              email: profile.email,
-              image: profile.picture,
-            };
-          },
-        }),
-      ]
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            profile(profile) {
+              return {
+                id: profile.sub,
+                name: profile.name,
+                email: profile.email,
+                image: profile.picture,
+              };
+            },
+          }),
+        ]
       : []),
 
     // 密码登录
@@ -81,7 +81,10 @@ export const authOptions: NextAuthOptions = {
           throw new Error("请输入手机号和验证码");
 
         // 验证验证码
-        const verifyResult = verifyCode(credentials.phone, credentials.code);
+        const verifyResult = await verifyCode(
+          credentials.phone,
+          credentials.code,
+        );
         if (!verifyResult.success) {
           throw new Error(verifyResult.message);
         }
