@@ -6,64 +6,69 @@
 
 ---
 
-## 🎯 我们的承诺
+## 🎯 Our Pledge
 
-为了营造一个开放和友好的环境，我们作为贡献者和维护者承诺：无论年龄、体型、残疾、种族、性别认同和表达、经验水平、教育程度、社会经济地位、国籍、外貌、种族、宗教或性取向如何，参与我们的项目和社区都将为每个人提供无骚扰的体验。
+We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education or socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
----
-
-## 📋 我们的标准
-
-### ✅ 积极行为示例
-
-- 使用友好和包容的语言
-- 尊重不同的观点和经验
-- 优雅地接受建设性批评
-- 关注对社区最有利的事情
-- 对其他社区成员表示同理心
-
-### ❌ 不可接受的行为示例
-
-- 使用性化的语言或图像，以及不受欢迎的性关注或性骚扰
-- 捣乱、侮辱/贬低评论以及人身或政治攻击
-- 公开或私下的骚扰
-- 未经明确许可，发布他人的私人信息，例如物理地址或电子地址
-- 在专业环境中可能被合理认为不适当的其他行为
+We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
 
 ---
 
-## 🎓 我们的责任
+## 📋 Our Standards
 
-项目维护者负责阐明可接受行为的标准，并期望对任何不可接受行为采取适当和公平的纠正措施。
+### ✅ Examples of Positive Behavior
 
-项目维护者有权利和责任删除、编辑或拒绝与本行为准则不符的评论、提交、代码、wiki 编辑、问题和其他贡献，或暂时或永久禁止任何他们认为有不安全、侮辱或有害行为的贡献者。
+- Demonstrating empathy and kindness toward other people
+- Being respectful of differing opinions, viewpoints, and experiences
+- Giving and gracefully accepting constructive feedback
+- Accepting responsibility and apologizing to those affected by our mistakes
+- Learning from mistakes
+- Focusing on what is best not just for us as individuals, but for the overall community
+
+### ❌ Examples of Unacceptable Behavior
+
+- The use of sexualized language or imagery, and sexual attention or advances of any kind
+- Trolling, insulting or derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information without explicit permission
+- Other conduct which could reasonably be considered inappropriate in a professional setting
 
 ---
 
-## 📬 适用范围
+## 🎓 Enforcement Responsibilities
 
-本行为准则适用于项目空间和公共空间，当个人代表项目或其社区时。代表项目或社区的示例包括使用官方项目电子邮件地址、通过官方社交媒体帐户发布信息或在线上或线下活动中担任指定代表。项目的代表可由项目维护者进一步定义和阐明。
+Community leaders are responsible for clarifying and enforcing our standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.
 
----
-
-## 🚨 执行
-
-可以通过 contact@flexhire.com 联系项目团队来报告辱骂、骚扰或其他不可接受的行为。所有投诉都将被审查和调查，并将做出被认为必要和适当的回应。项目团队有义务对事件报告者保密。具体执行政策的更多详细信息可能会单独发布。
-
-不真诚地遵守或执行本行为准则的项目维护者可能会面临由项目领导层其他成员确定的临时或永久影响。
+Community leaders have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, and will communicate reasons for moderation decisions when appropriate.
 
 ---
 
-## 📖 归属
+## 📬 Scope
 
-本行为准则改编自 [Contributor Covenant](https://www.contributor-covenant.org)，版本 1.4，可在 https://www.contributor-covenant.org/zh-cn/version/1/4/code-of-conduct.html 获得
+This Code of Conduct applies within all community spaces, and also applies when an individual is officially representing the community in public spaces. Examples of representing our community include using an official e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event.
+
+---
+
+## 🚨 Enforcement
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at contact@flexhire.com. All complaints will be reviewed and investigated promptly and fairly.
+
+All community leaders are obligated to respect the privacy and security of the reporter of any incident.
+
+---
+
+## 📖 Attribution
+
+This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/), version 2.0, available at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html
+
+Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/diversity).
 
 ---
 
 <div align="center">
 
-**让我们一起构建一个友好的社区！ 🌈**
+**Let's build a friendly community together! 🌈**
 
-[⬆ 返回顶部](#-contributor-covenant-code-of-conduct)
+[⬆ Back to top](#-contributor-covenant-code-of-conduct)
 
 </div>

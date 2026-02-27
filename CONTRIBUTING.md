@@ -2,9 +2,9 @@
 
 # 🤝 Contributing to FlexHire
 
-**感谢你考虑为 FlexHire 做贡献！**
+**Thank you for considering contributing to FlexHire!**
 
-我们欢迎所有形式的贡献，无论是新功能、Bug 修复、文档改进还是建议。
+We welcome all forms of contribution, whether new features, bug fixes, documentation improvements, or suggestions.
 
 <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge" alt="PRs Welcome"/>
 <img src="https://img.shields.io/badge/Contributors-All_Welcome-blue?style=for-the-badge" alt="Contributors Welcome"/>
@@ -13,102 +13,102 @@
 
 ---
 
-## 📋 目录
+## 📋 Table of Contents
 
-- [行为准则](#-行为准则)
-- [我能如何贡献？](#-我能如何贡献)
-- [开发流程](#-开发流程)
-- [代码规范](#-代码规范)
-- [提交规范](#-提交规范)
-- [Pull Request 流程](#-pull-request-流程)
-
----
-
-## 🌟 行为准则
-
-本项目采用 [Contributor Covenant](CODE_OF_CONDUCT.md) 行为准则。参与本项目即表示你同意遵守其条款。
+- [Code of Conduct](#-code-of-conduct)
+- [How Can I Contribute?](#-how-can-i-contribute)
+- [Development Process](#-development-process)
+- [Code Standards](#-code-standards)
+- [Commit Guidelines](#-commit-guidelines)
+- [Pull Request Process](#-pull-request-process)
 
 ---
 
-## 🚀 我能如何贡献？
+## 🌟 Code of Conduct
 
-### 报告 Bug
-
-在提交 Bug 报告前，请先：
-
-1. 检查 [Issues](https://github.com/G3niusYukki/flex-platform/issues) 中是否已有相同问题
-2. 确认你使用的是最新版本
-3. 收集以下信息：
-   - 操作系统和版本
-   - Node.js 版本
-   - 浏览器版本（如适用）
-   - 复现步骤
-   - 预期行为 vs 实际行为
-
-### 建议新功能
-
-我们欢迎新功能建议！请提供：
-
-- 功能描述
-- 使用场景
-- 可能的实现方式（可选）
-
-### 改进文档
-
-文档改进包括但不限于：
-
-- 修正拼写或语法错误
-- 添加缺失的文档
-- 改进现有文档的清晰度
+This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md) code of conduct. By participating, you agree to abide by its terms.
 
 ---
 
-## 💻 开发流程
+## 🚀 How Can I Contribute?
+
+### Reporting Bugs
+
+Before submitting a bug report, please:
+
+1. Check if the issue already exists in [Issues](https://github.com/G3niusYukki/flex-platform/issues)
+2. Confirm you're using the latest version
+3. Collect the following information:
+   - OS and version
+   - Node.js version
+   - Browser version (if applicable)
+   - Steps to reproduce
+   - Expected vs actual behavior
+
+### Suggesting Features
+
+We welcome feature suggestions! Please provide:
+
+- Feature description
+- Use cases
+- Possible implementation approach (optional)
+
+### Improving Documentation
+
+Documentation improvements include:
+
+- Fixing spelling or grammar errors
+- Adding missing documentation
+- Improving clarity of existing docs
+
+---
+
+## 💻 Development Process
 
 ### 1. Fork & Clone
 
 ```bash
-# Fork 后 clone 你的仓库
+# After forking, clone your repository
 git clone https://github.com/<your-username>/flex-platform.git
 cd flex-platform
 ```
 
-### 2. 安装依赖
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3. 创建分支
+### 3. Create a Branch
 
 ```bash
 git checkout -b feat/your-feature-name
-# 或
+# or
 git checkout -b fix/your-bug-fix
 ```
 
-### 4. 本地开发
+### 4. Local Development
 
 ```bash
-# 配置环境变量
+# Configure environment variables
 cp .env.example apps/web/.env
 
-# 初始化数据库
+# Initialize database
 cd apps/web
 npx prisma db push
 npx ts-node prisma/seed.ts
 
-# 启动开发服务器
+# Start dev server
 npm run dev
 ```
 
-### 5. 运行测试
+### 5. Run Tests
 
 ```bash
-# 单元测试
+# Unit tests
 npm test
 
-# 类型检查
+# Type check
 npm run typecheck
 
 # Lint
@@ -117,42 +117,42 @@ npm run lint
 
 ---
 
-## 📏 代码规范
+## 📏 Code Standards
 
 ### TypeScript
 
-- 使用 TypeScript 编写所有新代码
-- 避免使用 `any`，优先使用具体类型
-- 为公共 API 添加 JSDoc 注释
+- Write all new code in TypeScript
+- Avoid `any`, prefer specific types
+- Add JSDoc comments for public APIs
 
 ### React
 
-- 使用函数组件和 Hooks
-- 组件命名使用 PascalCase
-- 文件命名使用 kebab-case
+- Use function components and Hooks
+- Use PascalCase for component names
+- Use kebab-case for file names
 
-### 样式
+### Styling
 
-- 使用 Tailwind CSS
-- 遵循现有的设计系统
+- Use Tailwind CSS
+- Follow existing design system
 
-### 代码格式化
+### Code Formatting
 
-项目使用 ESLint 和 Prettier：
+Project uses ESLint and Prettier:
 
 ```bash
-# 检查代码风格
+# Check code style
 npm run lint
 
-# 自动修复
+# Auto-fix
 npm run lint:fix
 ```
 
 ---
 
-## 📝 提交规范
+## 📝 Commit Guidelines
 
-我们使用 [Conventional Commits](https://www.conventionalcommits.org/) 规范：
+We use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 <type>(<scope>): <description>
@@ -162,90 +162,90 @@ npm run lint:fix
 [optional footer(s)]
 ```
 
-### Type 类型
+### Types
 
-| Type       | 说明      | 示例                                        |
-| ---------- | --------- | ------------------------------------------- |
-| `feat`     | 新功能    | `feat(auth): add OAuth login`               |
-| `fix`      | Bug 修复  | `fix(payment): resolve stripe webhook`      |
-| `docs`     | 文档更新  | `docs: update installation guide`           |
-| `style`    | 代码格式  | `style: format code`                        |
-| `refactor` | 代码重构  | `refactor(ai): optimize matching algorithm` |
-| `perf`     | 性能优化  | `perf(api): reduce response time`           |
-| `test`     | 测试相关  | `test(dispatch): add unit tests`            |
-| `chore`    | 构建/工具 | `chore: update dependencies`                |
+| Type       | Description   | Example                                     |
+| ---------- | ------------- | ------------------------------------------- |
+| `feat`     | New feature   | `feat(auth): add OAuth login`               |
+| `fix`      | Bug fix       | `fix(payment): resolve stripe webhook`      |
+| `docs`     | Documentation | `docs: update installation guide`           |
+| `style`    | Code format   | `style: format code`                        |
+| `refactor` | Code refactor | `refactor(ai): optimize matching algorithm` |
+| `perf`     | Performance   | `perf(api): reduce response time`           |
+| `test`     | Testing       | `test(dispatch): add unit tests`            |
+| `chore`    | Build/tools   | `chore: update dependencies`                |
 
-### Scope 范围
+### Scopes
 
-- `auth` - 认证相关
-- `payment` - 支付相关
-- `dispatch` - 派单相关
-- `api` - API 相关
-- `ui` - UI 组件
-- `db` - 数据库相关
-- `admin` - 管理后台
+- `auth` - Authentication
+- `payment` - Payment
+- `dispatch` - Dispatch
+- `api` - API
+- `ui` - UI components
+- `db` - Database
+- `admin` - Admin panel
 
 ---
 
-## 🔀 Pull Request 流程
+## 🔀 Pull Request Process
 
-### 提交前检查清单
+### Pre-submission Checklist
 
-- [ ] 代码通过所有测试 `npm test`
-- [ ] 代码通过 Lint 检查 `npm run lint`
-- [ ] 代码通过类型检查 `npm run typecheck`
-- [ ] 更新了相关文档
-- [ ] 提交信息遵循规范
+- [ ] Code passes all tests `npm test`
+- [ ] Code passes lint `npm run lint`
+- [ ] Code passes type check `npm run typecheck`
+- [ ] Documentation updated
+- [ ] Commit messages follow guidelines
 
-### PR 标题格式
+### PR Title Format
 
 ```
 <type>(<scope>): <description>
 ```
 
-示例：
+Examples:
 
 - `feat(auth): add WeChat OAuth login`
 - `fix(payment): resolve duplicate charge issue`
 
-### PR 描述模板
+### PR Description Template
 
 ```markdown
-## 变更类型
+## Type of Change
 
-- [ ] 🐛 Bug 修复
-- [ ] ✨ 新功能
-- [ ] 📝 文档更新
-- [ ] 🔨 重构
-- [ ] 🎨 样式更新
-- [ ] ⚡ 性能优化
+- [ ] 🐛 Bug fix
+- [ ] ✨ New feature
+- [ ] 📝 Documentation update
+- [ ] 🔨 Refactor
+- [ ] 🎨 Style update
+- [ ] ⚡ Performance optimization
 
-## 描述
+## Description
 
-简要描述你的更改...
+Brief description of your changes...
 
-## 相关 Issue
+## Related Issue
 
 Closes #xxx
 
-## 测试
+## Testing
 
-描述如何测试这些更改...
+How to test these changes...
 
-## 截图（如适用）
+## Screenshots (if applicable)
 ```
 
-### Review 流程
+### Review Process
 
-1. 提交 PR 后，CI 会自动运行测试
-2. 至少需要 1 位维护者审核通过
-3. 解决所有 review 意见后，维护者会合并 PR
+1. After PR submission, CI runs tests automatically
+2. At least 1 maintainer approval required
+3. After resolving all review comments, maintainer will merge PR
 
 ---
 
-## 🏆 贡献者
+## 🏆 Contributors
 
-感谢所有贡献者！
+Thanks to all contributors!
 
 <a href="https://github.com/G3niusYukki/flex-platform/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=G3niusYukki/flex-platform" />
@@ -253,7 +253,7 @@ Closes #xxx
 
 ---
 
-## ❓ 需要帮助？
+## ❓ Need Help?
 
 - 💬 [GitHub Discussions](https://github.com/G3niusYukki/flex-platform/discussions)
 - 🐛 [Issue Tracker](https://github.com/G3niusYukki/flex-platform/issues)
@@ -263,8 +263,8 @@ Closes #xxx
 
 <div align="center">
 
-**再次感谢你的贡献！ ❤️**
+**Thanks again for your contribution! ❤️**
 
-[⬆ 返回顶部](#-contributing-to-flexhire)
+[⬆ Back to top](#-contributing-to-flexhire)
 
 </div>

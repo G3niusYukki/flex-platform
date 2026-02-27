@@ -2,17 +2,17 @@
 
 # 🛡️ Security Policy
 
-**安全是我们最重要的优先事项。**
+**Security is our top priority.**
 
-如果你发现任何安全漏洞，请负责任地披露。
+If you discover any security vulnerability, please disclose it responsibly.
 
 </div>
 
 ---
 
-## 🔒 支持的版本
+## 🔒 Supported Versions
 
-我们为以下版本提供安全更新：
+We provide security updates for the following versions:
 
 | Version | Supported         |
 | ------- | ----------------- |
@@ -23,108 +23,108 @@
 
 ---
 
-## 🚨 报告漏洞
+## 🚨 Reporting a Vulnerability
 
-**请不要通过公开 Issue 报告安全漏洞。**
+**Please do not report security vulnerabilities through public Issues.**
 
-### 报告方式
+### Reporting Methods
 
-1. **GitHub Security Advisories** (推荐)
+1. **GitHub Security Advisories** (Recommended)
 
-   访问 [Security Advisories](https://github.com/G3niusYukki/flex-platform/security/advisories/new) 提交报告
+   Visit [Security Advisories](https://github.com/G3niusYukki/flex-platform/security/advisories/new) to submit a report
 
 2. **Email**
 
-   发送邮件至: `security@flexhire.com`
+   Send to: `security@flexhire.com`
 
-   请在邮件主题中包含 `[Security]` 前缀
+   Please include `[Security]` prefix in the subject line
 
-### 报告内容
+### Report Contents
 
-请包含以下信息：
+Please include:
 
-- 漏洞描述
-- 复现步骤
-- 影响范围
-- 可能的修复方案（可选）
-- 你的联系方式
+- Vulnerability description
+- Steps to reproduce
+- Impact scope
+- Possible fix (optional)
+- Your contact information
 
-### 响应时间
+### Response Time
 
-- **确认收到**: 24 小时内
-- **初步评估**: 3 个工作日内
-- **修复时间**: 根据严重程度
-  - 🔴 Critical: 24-48 小时
-  - 🟠 High: 7 天
-  - 🟡 Medium: 14 天
-  - 🟢 Low: 30 天
+- **Acknowledgment**: Within 24 hours
+- **Initial Assessment**: Within 3 business days
+- **Fix Timeline**: Based on severity
+  - 🔴 Critical: 24-48 hours
+  - 🟠 High: 7 days
+  - 🟡 Medium: 14 days
+  - 🟢 Low: 30 days
 
 ---
 
-## 🏆 安全致谢
+## 🏆 Security Acknowledgments
 
-我们感谢以下安全研究人员：
+We thank the following security researchers:
 
 <!--
-| 姓名 | 发现的漏洞 | 日期 |
-|------|-----------|------|
+| Name | Vulnerability Found | Date |
+|------|---------------------|------|
 | @username | XSS in profile | 2024-01-01 |
 -->
 
-_成为第一个上榜的贡献者！_
+_Be the first to be listed!_
 
 ---
 
-## 📋 安全最佳实践
+## 📋 Security Best Practices
 
-### 部署安全
+### Deployment Security
 
-- [ ] 使用强密码和密钥
-- [ ] 启用 HTTPS
-- [ ] 配置 CORS 策略
-- [ ] 定期更新依赖
-- [ ] 启用日志监控
+- [ ] Use strong passwords and keys
+- [ ] Enable HTTPS
+- [ ] Configure CORS policy
+- [ ] Update dependencies regularly
+- [ ] Enable log monitoring
 
-### 环境变量
+### Environment Variables
 
 ```bash
-# 必须使用强密钥
-NEXTAUTH_SECRET=your-strong-secret-here  # 至少 32 字符
+# Must use strong keys
+NEXTAUTH_SECRET=your-strong-secret-here  # At least 32 characters
 
-# 数据库连接使用 SSL
+# Database connection with SSL
 DATABASE_URL=postgresql://...?sslmode=require
 
-# 不要提交敏感信息到版本控制
+# Do not commit sensitive information
 ```
 
-### API 安全
+### API Security
 
-- 所有 API 端点都需要认证
-- 敏感操作需要二次验证
-- 实施请求速率限制
-- 验证所有用户输入
+- All API endpoints require authentication
+- Sensitive operations require 2FA
+- Implement rate limiting
+- Validate all user input
 
 ---
 
-## 🔐 安全功能
+## 🔐 Security Features
 
-FlexHire 内置以下安全功能：
+FlexHire includes the following security features:
 
-| 功能            | 说明              |
-| --------------- | ----------------- |
-| 🔒 AES-256 加密 | 敏感数据加密存储  |
-| 🛡️ CSRF 保护    | NextAuth 内置保护 |
-| 🔑 OAuth 2.0    | 安全的第三方登录  |
-| 📱 短信验证     | 手机号验证        |
-| 🚦 风控系统     | 异常行为检测      |
-| 📊 Sentry 监控  | 实时错误追踪      |
+| Feature               | Description                      |
+| --------------------- | -------------------------------- |
+| 🔒 AES-256 Encryption | Sensitive data encrypted at rest |
+| 🛡️ CSRF Protection    | Built-in NextAuth protection     |
+| 🔑 OAuth 2.0          | Secure third-party login         |
+| 📱 SMS Verification   | Phone number verification        |
+| 🚦 Risk Control       | Anomaly behavior detection       |
+| 📊 Sentry Monitoring  | Real-time error tracking         |
 
 ---
 
 <div align="center">
 
-**感谢你帮助保持 FlexHire 安全！ 🙏**
+**Thank you for helping keep FlexHire secure! 🙏**
 
-[⬆ 返回顶部](#-security-policy)
+[⬆ Back to top](#-security-policy)
 
 </div>
