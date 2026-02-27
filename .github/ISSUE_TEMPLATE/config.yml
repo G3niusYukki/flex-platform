@@ -1,0 +1,15 @@
+---
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/G3niusYukki/flex-platform/discussions
+    about: 参与社区讨论，分享想法和经验
+  - name: 📖 查看文档
+    url: https://github.com/G3niusYukki/flex-platform#readme
+    about: 查看完整项目文档和使用指南
+  - name: 🔒 安全问题
+    url: https://github.com/G3niusYukki/flex-platform/security/policy
+    about: 报告安全漏洞请查看安全政策
+  - name: 🌐 在线演示
+    url: https://flex-platform-web.vercel.app
+    about: 体验在线演示版本
