@@ -72,9 +72,21 @@ model WorkerProfile {
   idCardVerified        Boolean   @default(false)
   idCardFront           String?
   idCardBack            String?
+  idCardName            String?
+  idCardNumber          String?   @db.VarChar(18)
   healthCertVerified    Boolean   @default(false)
   healthCertImage       String?
   skillCerts            Json?
+
+  // 实名认证
+  realNameVerified      Boolean   @default(false)
+  realNameVerifiedAt    DateTime?
+  faceVerified          Boolean   @default(false)
+  faceVerifiedAt        DateTime?
+
+  // 电子签约
+  eSignEnabled          Boolean   @default(false)
+  eSignAccountId        String?
 
   // 统计数据
   totalOrders           Int       @default(0)
@@ -108,6 +120,12 @@ enum Gender {
   OTHER
 }
 
+enum TaxType {
+  GENERAL_TAXPAYER   // 一般纳税人
+  SMALL_SCALE        // 小规模纳税人
+  INDIVIDUAL         // 个体工商户
+}
+
 enum OnlineStatus {
   OFFLINE
   ONLINE
@@ -130,6 +148,21 @@ model EmployerProfile {
   verified          Boolean   @default(false)
   verifiedAt        DateTime?
   licenseImage      String?
+
+  // 税务信息
+  taxType           TaxType?
+  taxId             String?
+  taxVerified       Boolean   @default(false)
+  taxVerifiedAt     DateTime?
+
+  // 电子签约
+  eSignEnabled      Boolean   @default(false)
+  eSignAccountId   String?
+
+  // 发票信息
+  invoiceEnabled    Boolean   @default(true)
+  invoiceTitle      String?
+  invoiceTaxId     String?
 
   // 统计数据
   totalOrders       Int       @default(0)
