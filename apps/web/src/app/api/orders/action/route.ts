@@ -49,6 +49,9 @@ export async function POST(request: NextRequest) {
           workerId: session.user.id,
           dispatchType: "WORKER_ACCEPT",
           status: "ACCEPTED",
+          priorityScore: 100,
+          acceptDeadline: new Date(),
+          dispatchedAt: new Date(),
         },
       });
 
@@ -70,6 +73,8 @@ export async function POST(request: NextRequest) {
           dispatchType: "WORKER_ACCEPT",
           status: "REJECTED",
           rejectReason: reason,
+          priorityScore: 100,
+          acceptDeadline: new Date(),
         },
       });
 
