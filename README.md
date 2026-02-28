@@ -17,7 +17,9 @@
 [![GitHub forks](https://img.shields.io/github/forks/G3niusYukki/flex-platform?style=for-the-badge&logo=github)](https://github.com/G3niusYukki/flex-platform/network/members)
 [![GitHub issues](https://img.shields.io/github/issues/G3niusYukki/flex-platform?style=for-the-badge&logo=github)](https://github.com/G3niusYukki/flex-platform/issues)
 [![MIT License](https://img.shields.io/github/license/G3niusYukki/flex-platform?style=for-the-badge)](https://github.com/G3niusYukki/flex-platform/blob/main/LICENSE)
-[![v2.0.0](https://img.shields.io/badge/Version-2.0.0-blue?style=for-the-badge)](https://github.com/G3niusYukki/flex-platform/releases)
+[![v2.0.1](https://img.shields.io/badge/Version-2.0.1-blue?style=for-the-badge)](https://github.com/G3niusYukki/flex-platform/releases)
+[![Deploy Status](https://img.shields.io/github/actions/workflow/status/G3niusYukki/flex-platform/deploy-web.yml?label=Web%20Deploy)](https://github.com/G3niusYukki/flex-platform/actions)
+[![Docker Support](https://img.shields.io/badge/Docker-Supported-blue?style=for-the-badge&logo=docker)](https://www.docker.com/)
 
 [🌐 Live Demo](https://flex-platform-web.vercel.app) · [📖 Docs](#-documentation) · [🚀 Quick Start](#-quick-start) · [🤝 Contributing](CONTRIBUTING.md) · [☕ Sponsor](#-sponsor)
 
@@ -503,8 +505,18 @@ docker run -p 3000:3000 \
 ### Docker Compose
 
 ```bash
+# 复制环境变量配置
+cp .env.docker.example .env
+# 编辑 .env 文件配置数据库密码等
+
+# 启动所有服务
 docker-compose up -d
 ```
+
+访问:
+
+- Web: http://localhost:3000
+- Admin: http://localhost:3001
 
 ---
 
