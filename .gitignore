@@ -4,3 +4,7 @@ apps/*/.next/
 apps/*/node_modules/
 .vscode/
 *.log
+*.env
+*.env.local
+.env.*
+!.env.example
